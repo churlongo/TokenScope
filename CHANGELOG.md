@@ -11,3 +11,9 @@ a Changelog, and the project uses semantic versioning.
 
 ## [1.0.1] - 2026-06-24
 
+### Fixed
+
+- Tokens with an unpadded base64url segment decode correctly instead of
+  reporting a structural error.
+
+## [1.0.0] - 2025-10-28
