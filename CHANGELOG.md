@@ -17,3 +17,8 @@ a Changelog, and the project uses semantic versioning.
   reporting a structural error.
 
 ## [1.0.0] - 2025-10-28
+
+### Added
+
+- Stable CLI contract for audit, claims, policy, and version, exit codes 0/1/2.
+- Tests pin the decoder edges: unpadded segments and empty claims.
