@@ -22,3 +22,8 @@ a Changelog, and the project uses semantic versioning.
 
 - Stable CLI contract for audit, claims, policy, and version, exit codes 0/1/2.
 - Tests pin the decoder edges: unpadded segments and empty claims.
+
+## [0.9.5] - 2024-05-16
+
+### Changed
+
