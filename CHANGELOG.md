@@ -32,3 +32,8 @@ a Changelog, and the project uses semantic versioning.
 ## [0.9.0] - 2023-08-09
 
 ### Added
+
+- Multi token audit mode over a file of tokens.
+- Claim coverage summary across the audited set.
+
+## [0.8.0] - 2022-11-15
