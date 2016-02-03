@@ -37,3 +37,8 @@ a Changelog, and the project uses semantic versioning.
 - Claim coverage summary across the audited set.
 
 ## [0.8.0] - 2022-11-15
+
+### Added
+
+- JSON output for the audit and claims commands.
+- Coverage view per registered claim.
