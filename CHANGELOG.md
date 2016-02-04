@@ -48,3 +48,8 @@ a Changelog, and the project uses semantic versioning.
 ### Added
 
 - Bundled sample tokens with a generator script.
+- README walkthrough captured from a real audit run.
+
+## [0.6.0] - 2020-10-06
+
+### Added
