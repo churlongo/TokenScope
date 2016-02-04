@@ -42,3 +42,9 @@ a Changelog, and the project uses semantic versioning.
 
 - JSON output for the audit and claims commands.
 - Coverage view per registered claim.
+
+## [0.7.0] - 2021-03-23
+
+### Added
+
+- Bundled sample tokens with a generator script.
