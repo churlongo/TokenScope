@@ -53,3 +53,8 @@ a Changelog, and the project uses semantic versioning.
 ## [0.6.0] - 2020-10-06
 
 ### Added
+
+- Test suite covering decoding, claims, and the CLI.
+
+## [0.5.0] - 2019-06-19
+
