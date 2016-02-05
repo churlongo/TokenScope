@@ -63,3 +63,8 @@ a Changelog, and the project uses semantic versioning.
 - Report renderer with stable finding names.
 - CLI entry point with subcommands.
 
+## [0.4.0] - 2018-09-27
+
+### Added
+
+- Structural verify pass for the header and signature shape.
