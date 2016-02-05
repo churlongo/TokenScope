@@ -68,3 +68,8 @@ a Changelog, and the project uses semantic versioning.
 ### Added
 
 - Structural verify pass for the header and signature shape.
+
+## [0.3.0] - 2017-05-11
+
+### Added
+
