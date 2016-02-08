@@ -64,3 +64,14 @@ will produce the same lines every time.
 A JWT looks trustworthy because it is signed, and that appearance is exactly
 the trap. The three base64url segments are readable by anyone, and most of the
 danger in a token lives in fields that are perfectly valid JSON: an `alg` header
+that says `none`, an `exp` that is years away, an `aud` that is missing so the
+token is accepted by a service it was never minted for. None of these are
+decode errors. A parser that only asks "did this decode" will pass them all.
+
+The other classic trap is who verifies the signature and how. A server that
+accepts both RSA and HMAC can be tricked: hand it a token whose header claims
+HMAC, and if the code path feeds the RSA public key (which is not secret) into
+an HMAC verifier, the public key becomes the shared secret and the attacker can
+forge tokens at will. You cannot see this from a single token, but you can see
+the precondition: an HMAC token sitting in a set whose policy also permits RSA.
+
