@@ -40,3 +40,15 @@ token[5] alg=HS256 findings=2
 summary:
   high:  9
   medium: 1
+  low:   0
+  info:  0
+  total: 10
+```
+
+</details>
+
+TokenScope is an offline structural auditor for JSON Web Tokens (JWT) and their
+signed form (JWS) in compact serialization. It reads a file of tokens, decodes
+the header and claims without trusting a single value in them, and reports the
+weaknesses it can prove from the bytes alone. It verifies HMAC signatures when
+you supply the shared secret, and it says plainly when it cannot verify an
