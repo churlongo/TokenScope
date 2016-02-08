@@ -52,3 +52,15 @@ signed form (JWS) in compact serialization. It reads a file of tokens, decodes
 the header and claims without trusting a single value in them, and reports the
 weaknesses it can prove from the bytes alone. It verifies HMAC signatures when
 you supply the shared secret, and it says plainly when it cannot verify an
+asymmetric signature rather than pretending the token is sound.
+
+The whole tool is Python 3.11 and the standard library. It opens no sockets,
+resolves no names, and runs no subprocesses. You can point it at a token dump
+from a log, a fixture set in a test suite, or a paste from an incident, and it
+will produce the same lines every time.
+
+## The problem
+
+A JWT looks trustworthy because it is signed, and that appearance is exactly
+the trap. The three base64url segments are readable by anyone, and most of the
+danger in a token lives in fields that are perfectly valid JSON: an `alg` header
