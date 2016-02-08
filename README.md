@@ -87,3 +87,15 @@ tree with the package on the path.
 ```
 $ PYTHONPATH=src python -m tokenscope version
 tokenscope 0.1.0
+```
+
+The three working subcommands take a file of tokens, one token per line. Lines
+that are blank or begin with `#` are ignored, so the bundled `samples/tokens.txt`
+can carry comments describing each vector.
+
+## Subcommands
+
+| Command   | What it does                                              | Exit on issue |
+| --------- | --------------------------------------------------------- | ------------- |
+| `inspect` | decode header and payload, list present claims, no verdict | always 0     |
+| `audit`   | apply the policy, print findings per token                | 1 if findings |
