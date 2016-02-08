@@ -75,3 +75,15 @@ an HMAC verifier, the public key becomes the shared secret and the attacker can
 forge tokens at will. You cannot see this from a single token, but you can see
 the precondition: an HMAC token sitting in a set whose policy also permits RSA.
 
+TokenScope exists to make those readable-but-wrong fields loud. It treats the
+token as untrusted input, applies a declared policy, and prints one line per
+problem so the result diffs cleanly in review.
+
+## Install and run
+
+There is nothing to install beyond Python 3.11. Run it straight from the source
+tree with the package on the path.
+
+```
+$ PYTHONPATH=src python -m tokenscope version
+tokenscope 0.1.0
