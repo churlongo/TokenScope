@@ -99,3 +99,14 @@ can carry comments describing each vector.
 | --------- | --------------------------------------------------------- | ------------- |
 | `inspect` | decode header and payload, list present claims, no verdict | always 0     |
 | `audit`   | apply the policy, print findings per token                | 1 if findings |
+| `verify`  | check HMAC signatures against a supplied secret           | 1 if a check fails |
+| `version` | print the package version                                 | 0             |
+
+### inspect
+
+`inspect` is the honest first look. It decodes each token and prints the header
+and payload as canonical JSON (keys sorted, compact separators) so two runs
+compare byte for byte. It renders no judgement, which makes it the right tool
+when you want to see what a token actually contains before deciding anything.
+
+```
