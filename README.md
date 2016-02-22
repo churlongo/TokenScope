@@ -110,3 +110,15 @@ compare byte for byte. It renders no judgement, which makes it the right tool
 when you want to see what a token actually contains before deciding anything.
 
 ```
+$ PYTHONPATH=src python -m tokenscope inspect samples/tokens.txt
+token[0]:
+  segments: 3
+  header: {"alg":"HS256","kid":"key-2026-01","typ":"JWT"}
+  payload: {"aud":"api.example","exp":1767229140,"iat":1767225540,"iss":"https://issuer.example","nbf":1767225540,"sub":"user-1001"}
+  registered-claims-present: iss, sub, aud, exp, nbf, iat
+token[1]:
+  segments: 3
+  header: {"alg":"none","typ":"JWT"}
+  payload: {"aud":"api.example","exp":1767229140,"iat":1767225540,"iss":"https://issuer.example","sub":"user-1002"}
+  registered-claims-present: iss, sub, aud, exp, iat
+token[2]:
