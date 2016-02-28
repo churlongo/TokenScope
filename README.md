@@ -122,3 +122,15 @@ token[1]:
   payload: {"aud":"api.example","exp":1767229140,"iat":1767225540,"iss":"https://issuer.example","sub":"user-1002"}
   registered-claims-present: iss, sub, aud, exp, iat
 token[2]:
+  segments: 3
+  header: {"alg":"HS256","kid":"key-2026-01","typ":"JWT"}
+  payload: {"aud":"api.example","exp":1767222000,"iat":1767218400,"iss":"https://issuer.example","sub":"user-1003"}
+  registered-claims-present: iss, sub, aud, exp, iat
+token[3]:
+  segments: 3
+  header: {"alg":"HS256","kid":"key-2026-01","typ":"JWT"}
+  payload: {"exp":1767229140,"iat":1767225540,"iss":"https://issuer.example","sub":"user-1004"}
+  registered-claims-present: iss, sub, exp, iat
+token[4]:
+  segments: 3
+  header: {"alg":"HS256","kid":"key-2026-01","typ":"JWT"}
