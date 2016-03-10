@@ -134,3 +134,15 @@ token[3]:
 token[4]:
   segments: 3
   header: {"alg":"HS256","kid":"key-2026-01","typ":"JWT"}
+  payload: {"aud":"api.example","exp":1769817600,"iat":1767225540,"iss":"https://issuer.example","sub":"user-1005"}
+  registered-claims-present: iss, sub, aud, exp, iat
+token[5]:
+  segments: 3
+  decode-error: payload is not valid JSON: Expecting property name enclosed in double quotes: line 1 column 2 (char 1)
+  header: {"alg":"HS256","kid":"key-2026-01","typ":"JWT"}
+  payload: {}
+  registered-claims-present: none
+```
+
+### verify
+
