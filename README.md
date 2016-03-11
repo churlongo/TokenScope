@@ -157,3 +157,15 @@ with the samples.
 ```
 $ PYTHONPATH=src python -m tokenscope verify samples/tokens.txt --secret your-256-bit-secret
 token[0] alg=HS256 verify=valid
+  HMAC HS256 signature verified against supplied secret
+token[1] alg=none verify=unsupported
+  alg 'none' carries no signature to verify
+token[2] alg=HS256 verify=valid
+  HMAC HS256 signature verified against supplied secret
+token[3] alg=HS256 verify=valid
+  HMAC HS256 signature verified against supplied secret
+token[4] alg=HS256 verify=valid
+  HMAC HS256 signature verified against supplied secret
+token[5] alg=HS256 verify=invalid
+  HMAC HS256 signature does not match: wrong secret or tampered token
+```
