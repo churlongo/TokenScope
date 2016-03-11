@@ -146,3 +146,14 @@ token[5]:
 
 ### verify
 
+`verify` recomputes the HMAC over the exact signing input (the header and
+payload segments joined by a dot) and compares it with the signature segment
+using `hmac.compare_digest`, a constant time comparison. It only handles the
+HMAC family. For an asymmetric algorithm it returns `unsupported`, and for an
+unsecured `none` token it also returns `unsupported`, because there is no
+signature to check. The secret used below is the published test secret shipped
+with the samples.
+
+```
+$ PYTHONPATH=src python -m tokenscope verify samples/tokens.txt --secret your-256-bit-secret
+token[0] alg=HS256 verify=valid
