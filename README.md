@@ -181,3 +181,14 @@ The `audit` output at the top of this page is a stable format. Each field is
 defined here so you can parse it or diff it with confidence.
 
 | Line                          | Meaning                                                     |
+| ----------------------------- | ----------------------------------------------------------- |
+| `source:`                     | the file path passed on the command line                    |
+| `tokens:`                     | how many non-comment lines were read                        |
+| `now:`                        | the reference Unix time used for every time based check      |
+| `policy:` block               | the declared expectations, one field per line               |
+| `token[N] alg=A findings=K`   | token index N, its `alg` header, and finding count K         |
+| `  [SEV] RULE message`        | one finding: severity, rule id, and the fact that fired it   |
+| `summary:` block              | counts per severity and the grand total                     |
+
+Findings are sorted by severity (high, medium, low, info) and then by rule id,
+so the same input always yields the same order.
