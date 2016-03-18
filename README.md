@@ -169,3 +169,15 @@ token[4] alg=HS256 verify=valid
 token[5] alg=HS256 verify=invalid
   HMAC HS256 signature does not match: wrong secret or tampered token
 ```
+
+Four tokens verify against the real secret, which proves their signatures are
+genuine rather than placeholder bytes. Token 5 fails because its payload was
+corrupted after signing, so the recomputed MAC no longer matches. The two
+`unsupported` lines are honest limits, not passes.
+
+## Output format as a contract
+
+The `audit` output at the top of this page is a stable format. Each field is
+defined here so you can parse it or diff it with confidence.
+
+| Line                          | Meaning                                                     |
