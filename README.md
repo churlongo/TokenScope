@@ -192,3 +192,15 @@ defined here so you can parse it or diff it with confidence.
 
 Findings are sorted by severity (high, medium, low, info) and then by rule id,
 so the same input always yields the same order.
+
+## The findings
+
+| Rule  | Severity | Fires when                                                        |
+| ----- | -------- | ----------------------------------------------------------------- |
+| TS000 | high     | a structural decode error: bad base64url, non-JSON, wrong shape   |
+| TS001 | high     | the header has no `alg`, or `alg` is not a string                 |
+| TS002 | high     | `alg` is `none`: the token is unsecured                           |
+| TS003 | high     | `alg` is a string but not on the policy allow list                |
+| TS004 | high     | an HMAC token exists under a policy that also allows RSA          |
+| TS005 | medium   | no `kid` header while the policy declares key rotation            |
+| TS006 | medium   | a required registered claim is missing                            |
