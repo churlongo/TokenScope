@@ -204,3 +204,15 @@ so the same input always yields the same order.
 | TS004 | high     | an HMAC token exists under a policy that also allows RSA          |
 | TS005 | medium   | no `kid` header while the policy declares key rotation            |
 | TS006 | medium   | a required registered claim is missing                            |
+| TS007 | medium   | a claim has the wrong JSON type (for example `exp` not numeric)   |
+| TS008 | high     | `exp` is before now, beyond the skew tolerance: expired           |
+| TS009 | low      | `exp` or `nbf` sits inside the skew window: a clock skew hazard    |
+| TS010 | medium   | `nbf` is after now, beyond the skew tolerance: not yet valid      |
+| TS011 | high     | the lifetime from `iat` (or `nbf`) to `exp` exceeds the maximum   |
+| TS012 | medium   | negative lifetime: `exp` precedes the start claim                 |
+| TS013 | low      | `iat` is in the future relative to now: a clock hazard            |
+| TS014 | low      | the encoded payload is larger than the policy maximum             |
+
+## How to read the report, and what to do
+
+Each finding points at an action, not just a fact.
