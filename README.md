@@ -216,3 +216,14 @@ so the same input always yields the same order.
 ## How to read the report, and what to do
 
 Each finding points at an action, not just a fact.
+
+- TS002 `alg none`: reject the token. An unsecured token should never be
+  accepted on an authenticated path. Check why your issuer emitted it.
+- TS004 confusion risk: pin your verifier to one algorithm family per key. Do
+  not let a single endpoint accept both RSA and HMAC with the same key material.
+- TS006 missing claim: decide whether the claim is truly required for this
+  audience. A missing `aud` means the token is not scoped to your service.
+- TS008 expired: reject. If you see many, your issuer or client clocks may be
+  wrong, or lifetimes are too short for the traffic.
+- TS011 excessive lifetime: shorten the issuer's token lifetime, or raise the
+  policy maximum deliberately and record why.
