@@ -251,3 +251,15 @@ parse yields a TS000 decode error and the claim checks are skipped, because
 there is nothing trustworthy to inspect. That is why token 5 in the bundled set
 shows only the decode error and the policy level confusion advisory, and no
 claim findings.
+
+## Determinism
+
+The auditor never reads the wall clock. Every time based check uses the `now`
+value, which defaults to a fixed recorded epoch (1767225600, that is
+2026-01-01T00:00:00Z) and is printed in the audit header. Pass `--now` to audit
+against a different reference time. Because the reference is explicit, an audit
+of the same file always produces byte-identical output, which is what lets you
+commit a run and diff the next one.
+
+## Worked example: token 3
+
