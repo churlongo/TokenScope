@@ -263,3 +263,14 @@ commit a run and diff the next one.
 
 ## Worked example: token 3
 
+Follow the missing-aud token from bytes to verdict.
+
+1. The line is read from `samples/tokens.txt` and split on the two dots into
+   header, payload, and signature segments.
+2. Each segment is base64url decoded. `b64url` adds the padding a JWT omits and
+   confirms every character is in the URL safe alphabet.
+3. The header parses to `{"alg":"HS256","kid":"key-2026-01","typ":"JWT"}` and
+   the payload to an object with `iss`, `sub`, `iat`, and `exp`, but no `aud`.
+4. `claims` checks the policy required set (exp, iat, iss, sub, aud) against the
+   payload and finds `aud` absent, raising TS006 at medium.
+5. Because the token is HMAC and the default policy also allows RSA, TS004 fires
