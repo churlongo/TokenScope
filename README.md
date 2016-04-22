@@ -227,3 +227,15 @@ Each finding points at an action, not just a fact.
   wrong, or lifetimes are too short for the traffic.
 - TS011 excessive lifetime: shorten the issuer's token lifetime, or raise the
   policy maximum deliberately and record why.
+- TS005 missing `kid`: add a key id at the issuer so a rotating key set can be
+  selected without trial verification.
+
+## The algorithm, and the edge case that makes it hard
+
+Decoding a JWT is three base64url decodes and two JSON parses, which sounds
+trivial until you meet malformed input. base64url has no padding in a JWT, so
+the decoder must add padding back before decoding, and it must reject a segment
+that is the wrong length or carries a standard base64 character (`+` or `/`)
+rather than the URL safe `-` and `_`. The `b64url` module reports each of these
+distinctly so a corrupt token is diagnosed, not just failed.
+
