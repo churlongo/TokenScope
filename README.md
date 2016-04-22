@@ -274,3 +274,15 @@ Follow the missing-aud token from bytes to verdict.
 4. `claims` checks the policy required set (exp, iat, iss, sub, aud) against the
    payload and finds `aud` absent, raising TS006 at medium.
 5. Because the token is HMAC and the default policy also allows RSA, TS004 fires
+   at high as a confusion advisory.
+6. `verify` recomputes the HS256 MAC with the published secret and it matches,
+   so the signature is genuine even though the claim set is incomplete. A valid
+   signature does not make an incomplete token safe, which is the whole point.
+
+## Exit codes
+
+| Code | Meaning                          |
+| ---- | -------------------------------- |
+| 0    | clean, no findings and no failures |
+| 1    | findings present (audit) or a verification failed (verify) |
+| 2    | usage error, for example an unreadable file |
