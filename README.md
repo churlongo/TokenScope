@@ -286,3 +286,15 @@ Follow the missing-aud token from bytes to verdict.
 | 0    | clean, no findings and no failures |
 | 1    | findings present (audit) or a verification failed (verify) |
 | 2    | usage error, for example an unreadable file |
+
+## Design decisions
+
+**Verify only HMAC, and say so.** Implementing RSA or ECDSA verification from
+the standard library would mean writing modular exponentiation and curve
+arithmetic by hand, and getting the padding checks exactly right. Done badly,
+that is worse than nothing, because a subtly wrong verifier reports false
+confidence. The rejected alternative was to shell out to openssl, which breaks
+the offline rule. So the tool verifies HMAC and returns `unsupported` for the
+rest, which is a limit stated honestly rather than a risk hidden.
+
+**Confusion risk is a policy property.** TS004 fires on every HMAC token when
