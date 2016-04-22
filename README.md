@@ -239,3 +239,15 @@ that is the wrong length or carries a standard base64 character (`+` or `/`)
 rather than the URL safe `-` and `_`. The `b64url` module reports each of these
 distinctly so a corrupt token is diagnosed, not just failed.
 
+The genuinely hard part is time. A NumericDate is seconds since the epoch, but
+clocks disagree. If a token expired one second ago, is it expired or is your
+clock fast? TokenScope answers with a declared skew tolerance: past the skew it
+is a hard expiry (TS008), inside the skew it is a hazard (TS009). The same split
+applies to `nbf`. Lifetime is measured from `iat` when present, otherwise from
+`nbf`, and only when `exp` is also present, because a lifetime needs two ends.
+
+When the data is ambiguous the tool does not guess. A payload that fails to
+parse yields a TS000 decode error and the claim checks are skipped, because
+there is nothing trustworthy to inspect. That is why token 5 in the bundled set
+shows only the decode error and the policy level confusion advisory, and no
+claim findings.
