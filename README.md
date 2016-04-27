@@ -298,3 +298,14 @@ the offline rule. So the tool verifies HMAC and returns `unsupported` for the
 rest, which is a limit stated honestly rather than a risk hidden.
 
 **Confusion risk is a policy property.** TS004 fires on every HMAC token when
+the policy allows RSA, even a token that is otherwise clean. The rejected
+alternative was to fire only on tokens that look suspicious, but there is no
+per-token signal for this attack; the exposure is created by the verifier
+configuration, which the policy models. Flagging it uniformly is the honest
+choice. Run with an HMAC-only policy to remove the advisory when it does not
+apply to your deployment.
+
+**A fixed reference time, not the clock.** Reading the wall clock would make
+every audit non-reproducible and every committed run undiffable. The rejected
+alternative, reading `time.time()`, was set aside for a recorded `--now` with a
+fixed default. This is the single most important decision for using the tool in
