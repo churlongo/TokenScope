@@ -309,3 +309,15 @@ apply to your deployment.
 every audit non-reproducible and every committed run undiffable. The rejected
 alternative, reading `time.time()`, was set aside for a recorded `--now` with a
 fixed default. This is the single most important decision for using the tool in
+CI, where a stable output is the whole value.
+
+**Never trust decoded values.** The decode module returns data, never a
+decision. Nothing in the pipeline acts on a claim before the policy has judged
+it. This is why a `none` token is decoded and reported rather than shortcut, and
+why a corrupt payload still yields a report instead of an exception.
+
+## Repository layout
+
+```
+tokenscope/
+  README.md                     this file
