@@ -333,3 +333,14 @@ tokenscope/
     decode.py                   header and payload decode, never trusting values
     claims.py                   registered claim validation and findings
     policy.py                   declared maximum lifetime, required claims, algs
+    verify.py                   HMAC verification with hmac.compare_digest
+    report.py                   line-oriented rendering of results
+  tests/
+    test_tokenscope.py          unittest suite for every module and the CLI
+  samples/
+    README.md                   how the vectors were built, and the test secret
+    make_tokens.py              generates genuine signed tokens
+    tokens.txt                  the six committed test vectors
+  docs/assets/
+    logo.svg                    wordmark, morpheme colour split
+    claim-coverage.svg          claim presence and fired findings per token
