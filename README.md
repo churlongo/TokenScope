@@ -321,3 +321,15 @@ why a corrupt payload still yields a report instead of an exception.
 ```
 tokenscope/
   README.md                     this file
+  LICENSE                       MIT, holder "the tokenscope authors", 2026
+  CHANGELOG.md                  release notes
+  pyproject.toml                setuptools, src layout, console script
+  .gitignore                    ignore caches and build output
+  src/tokenscope/
+    __init__.py                 package version
+    __main__.py                 enables python -m tokenscope
+    cli.py                      argparse subcommands and exit codes
+    b64url.py                   strict base64url decode with padding repair
+    decode.py                   header and payload decode, never trusting values
+    claims.py                   registered claim validation and findings
+    policy.py                   declared maximum lifetime, required claims, algs
