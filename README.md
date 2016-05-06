@@ -344,3 +344,15 @@ tokenscope/
   docs/assets/
     logo.svg                    wordmark, morpheme colour split
     claim-coverage.svg          claim presence and fired findings per token
+```
+
+## The claim coverage diagram
+
+![Matrix of the six bundled tokens showing which registered claims are present per token and which finding rule ids fired, from a real audit run](docs/assets/claim-coverage.svg)
+
+Every filled cell, dash, and rule id in that graphic comes from the `audit` and
+`inspect` runs shown above, at the same reference time. It is a picture of this
+repository's real output, not an illustration.
+
+## Glossary
+
