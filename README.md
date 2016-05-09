@@ -356,3 +356,15 @@ repository's real output, not an illustration.
 
 ## Glossary
 
+- **JWT**: JSON Web Token, a set of claims encoded as three base64url segments.
+- **JWS**: JSON Web Signature, the signed structure a signed JWT uses.
+- **claim**: a name and value in the payload, such as `sub` or `exp`.
+- **registered claim**: a claim with a standard meaning from RFC 7519, such as
+  `iss`, `sub`, `aud`, `exp`, `nbf`, `iat`.
+- **NumericDate**: a claim value that is seconds since the Unix epoch.
+- **alg**: the header field naming the signing algorithm.
+- **kid**: the header field naming which key signed the token.
+- **signing input**: the header and payload segments joined by a dot, the exact
+  bytes a signature covers.
+- **clock skew**: the tolerance applied to time checks so a small clock
+  difference is a hazard rather than a hard failure.
