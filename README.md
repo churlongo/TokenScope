@@ -368,3 +368,15 @@ repository's real output, not an illustration.
   bytes a signature covers.
 - **clock skew**: the tolerance applied to time checks so a small clock
   difference is a hazard rather than a hard failure.
+- **algorithm confusion**: an attack where an HMAC token is verified with an RSA
+  public key used as the shared secret.
+
+## Verification
+
+The suite is stdlib `unittest`, 28 tests covering base64url edge cases, decode
+behaviour, every finding rule, HMAC verification including the wrong-secret and
+unsupported cases, report rendering, and the CLI exit codes.
+
+```
+$ PYTHONPATH=src python -m unittest discover -s tests -v
+...
