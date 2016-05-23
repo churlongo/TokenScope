@@ -5,3 +5,4 @@ build-backend = "setuptools.build_meta"
 [project]
 name = "tokenscope"
 version = "1.0.1"
+description = "Offline structural auditor for JWT and JWS tokens."
