@@ -14,3 +14,5 @@ keywords = ["jwt", "jws", "security", "auditor", "offline"]
 classifiers = [
     "Programming Language :: Python :: 3.11",
     "License :: OSI Approved :: MIT License",
+    "Topic :: Security",
+]
