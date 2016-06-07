@@ -18,3 +18,5 @@ classifiers = [
 ]
 
 [project.scripts]
+tokenscope = "tokenscope.cli:main"
+
