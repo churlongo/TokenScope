@@ -8,3 +8,9 @@ The decoder never raises for malformed input. It returns a Decoded result whose
 `ok` flag says whether decoding succeeded, and whose `error` string explains the
 first problem found. This lets the caller keep auditing the rest of a token set
 rather than aborting on the first bad segment.
+"""
+
+from __future__ import annotations
+
+import base64
+import binascii
