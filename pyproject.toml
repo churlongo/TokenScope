@@ -20,3 +20,5 @@ classifiers = [
 [project.scripts]
 tokenscope = "tokenscope.cli:main"
 
+[tool.setuptools.packages.find]
+where = ["src"]
