@@ -14,3 +14,9 @@ from __future__ import annotations
 
 import base64
 import binascii
+from dataclasses import dataclass
+
+# The base64url alphabet from RFC 4648 section 5, without padding.
+_ALPHABET = set(
+    "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+    "abcdefghijklmnopqrstuvwxyz"
