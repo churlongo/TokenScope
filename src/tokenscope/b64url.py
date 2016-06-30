@@ -20,3 +20,9 @@ from dataclasses import dataclass
 _ALPHABET = set(
     "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
     "abcdefghijklmnopqrstuvwxyz"
+    "0123456789-_"
+)
+
+
+@dataclass(frozen=True)
+class Decoded:
