@@ -26,3 +26,9 @@ _ALPHABET = set(
 
 @dataclass(frozen=True)
 class Decoded:
+    """Result of decoding one base64url segment.
+
+    ok:            True when the bytes were recovered.
+    data:          the decoded bytes, empty when ok is False.
+    padding_added: number of '=' characters the decoder had to supply.
+    error:         first problem found, or empty string when ok.
