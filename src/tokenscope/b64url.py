@@ -32,3 +32,9 @@ class Decoded:
     data:          the decoded bytes, empty when ok is False.
     padding_added: number of '=' characters the decoder had to supply.
     error:         first problem found, or empty string when ok.
+    """
+
+    ok: bool
+    data: bytes
+    padding_added: int
+    error: str
