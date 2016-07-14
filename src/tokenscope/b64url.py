@@ -38,3 +38,9 @@ class Decoded:
     data: bytes
     padding_added: int
     error: str
+
+
+def _find_bad_char(segment: str) -> str:
+    for ch in segment:
+        if ch not in _ALPHABET:
+            return ch
