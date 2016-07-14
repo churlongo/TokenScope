@@ -50,3 +50,9 @@ def _find_bad_char(segment: str) -> str:
 def decode_segment(segment: str) -> Decoded:
     """Decode one base64url segment, repairing missing padding.
 
+    A correct JWT segment carries no '=' padding and no characters outside the
+    base64url alphabet. This function accepts a segment that is missing its
+    padding (the normal JWT case) and records how many pad characters it added.
+    It rejects a segment that contains a standard base64 character (`+` or `/`),
+    padding in the middle, or any other stray byte, and reports which character
+    was at fault.
