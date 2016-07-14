@@ -56,3 +56,8 @@ def decode_segment(segment: str) -> Decoded:
     It rejects a segment that contains a standard base64 character (`+` or `/`),
     padding in the middle, or any other stray byte, and reports which character
     was at fault.
+    """
+    if segment == "":
+        return Decoded(ok=False, data=b"", padding_added=0, error="empty segment")
+
+    # A segment length of 1 mod 4 can never be valid base64.
