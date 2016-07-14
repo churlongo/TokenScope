@@ -44,3 +44,9 @@ def _find_bad_char(segment: str) -> str:
     for ch in segment:
         if ch not in _ALPHABET:
             return ch
+    return ""
+
+
+def decode_segment(segment: str) -> Decoded:
+    """Decode one base64url segment, repairing missing padding.
+
