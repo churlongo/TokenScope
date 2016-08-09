@@ -61,3 +61,9 @@ def decode_segment(segment: str) -> Decoded:
         return Decoded(ok=False, data=b"", padding_added=0, error="empty segment")
 
     # A segment length of 1 mod 4 can never be valid base64.
+    if len(segment) % 4 == 1:
+        return Decoded(
+            ok=False,
+            data=b"",
+            padding_added=0,
+            error="invalid length: %d characters is never valid base64url"
