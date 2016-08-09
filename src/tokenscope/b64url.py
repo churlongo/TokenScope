@@ -73,3 +73,9 @@ def decode_segment(segment: str) -> Decoded:
     bad = _find_bad_char(segment)
     if bad != "":
         if bad in "+/":
+            return Decoded(
+                ok=False,
+                data=b"",
+                padding_added=0,
+                error="standard base64 character %r found; expected base64url"
+                % bad,
