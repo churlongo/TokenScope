@@ -67,3 +67,9 @@ def decode_segment(segment: str) -> Decoded:
             data=b"",
             padding_added=0,
             error="invalid length: %d characters is never valid base64url"
+            % len(segment),
+        )
+
+    bad = _find_bad_char(segment)
+    if bad != "":
+        if bad in "+/":
