@@ -85,3 +85,9 @@ def decode_segment(segment: str) -> Decoded:
                 ok=False,
                 data=b"",
                 padding_added=0,
+                error="unexpected padding character '=' inside segment",
+            )
+        return Decoded(
+            ok=False,
+            data=b"",
+            padding_added=0,
