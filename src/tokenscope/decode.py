@@ -46,3 +46,10 @@ class DecodedToken:
     signing_input: bytes
     errors: list[str] = field(default_factory=list)
 
+    @property
+    def ok(self) -> bool:
+        """True when both header and payload decoded and parsed as JSON objects."""
+        return not self.errors
+
+
+def _parse_json_object(data: bytes, label: str) -> tuple[dict[str, Any], str]:
