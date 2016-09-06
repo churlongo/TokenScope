@@ -53,3 +53,10 @@ class DecodedToken:
 
 
 def _parse_json_object(data: bytes, label: str) -> tuple[dict[str, Any], str]:
+    """Parse bytes as a JSON object, returning (object, error).
+
+    A JWT header and payload must each be a JSON object. A JSON array, string,
+    or number is malformed for this purpose and is reported as such.
+    """
+    try:
+        text = data.decode("utf-8")
