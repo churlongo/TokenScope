@@ -18,3 +18,10 @@ import json
 from dataclasses import dataclass, field
 from typing import Any
 
+from . import b64url
+
+
+@dataclass
+class DecodedToken:
+    """Everything recovered from one compact token, plus decode problems.
+
