@@ -11,3 +11,10 @@ A JWT has three segments (header.payload.signature). A JWS with detached or
 absent signature, or an unsecured token with `alg: none`, may present an empty
 third segment. Both shapes are decoded and reported honestly.
 """
+
+from __future__ import annotations
+
+import json
+from dataclasses import dataclass, field
+from typing import Any
+
