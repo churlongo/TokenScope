@@ -32,3 +32,10 @@ class DecodedToken:
     header_b64:     the raw header segment text.
     payload_b64:    the raw payload segment text.
     signature_b64:  the raw signature segment text, empty when absent.
+    signing_input:  the exact bytes a verifier would sign: header.payload.
+    errors:         structural decode problems, in the order discovered.
+    """
+
+    raw: str
+    segments: int
+    header: dict[str, Any]
