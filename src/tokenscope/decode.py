@@ -39,3 +39,10 @@ class DecodedToken:
     raw: str
     segments: int
     header: dict[str, Any]
+    payload: dict[str, Any]
+    header_b64: str
+    payload_b64: str
+    signature_b64: str
+    signing_input: bytes
+    errors: list[str] = field(default_factory=list)
+
