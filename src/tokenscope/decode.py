@@ -25,3 +25,10 @@ from . import b64url
 class DecodedToken:
     """Everything recovered from one compact token, plus decode problems.
 
+    raw:            the original token text.
+    segments:       the count of '.'-separated segments found.
+    header:         parsed header object, or empty dict when it did not parse.
+    payload:        parsed payload object, or empty dict when it did not parse.
+    header_b64:     the raw header segment text.
+    payload_b64:    the raw payload segment text.
+    signature_b64:  the raw signature segment text, empty when absent.
