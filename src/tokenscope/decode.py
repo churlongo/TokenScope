@@ -60,3 +60,10 @@ def _parse_json_object(data: bytes, label: str) -> tuple[dict[str, Any], str]:
     """
     try:
         text = data.decode("utf-8")
+    except UnicodeDecodeError as exc:
+        return {}, "%s is not valid UTF-8: %s" % (label, exc)
+    try:
+        value = json.loads(text)
+    except json.JSONDecodeError as exc:
+        return {}, "%s is not valid JSON: %s" % (label, exc)
+    if not isinstance(value, dict):
