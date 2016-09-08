@@ -74,3 +74,10 @@ def _parse_json_object(data: bytes, label: str) -> tuple[dict[str, Any], str]:
 def decode_token(raw: str) -> DecodedToken:
     """Decode one compact token string into a DecodedToken.
 
+    This function tolerates every malformation it can name. It records the
+    problem and continues so that a corrupt token still yields a report rather
+    than an exception.
+    """
+    errors: list[str] = []
+    stripped = raw.strip()
+    parts = stripped.split(".")
