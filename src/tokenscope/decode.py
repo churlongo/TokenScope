@@ -67,3 +67,10 @@ def _parse_json_object(data: bytes, label: str) -> tuple[dict[str, Any], str]:
     except json.JSONDecodeError as exc:
         return {}, "%s is not valid JSON: %s" % (label, exc)
     if not isinstance(value, dict):
+        return {}, "%s is a JSON %s, not an object" % (label, type(value).__name__)
+    return value, ""
+
+
+def decode_token(raw: str) -> DecodedToken:
+    """Decode one compact token string into a DecodedToken.
+
