@@ -88,3 +88,10 @@ def decode_token(raw: str) -> DecodedToken:
     signature_b64 = parts[2] if len(parts) >= 3 else ""
 
     if segments < 2:
+        errors.append(
+            "expected at least 2 segments (header.payload), found %d" % segments
+        )
+    elif segments > 3:
+        errors.append(
+            "expected at most 3 segments, found %d; extra '.' in token" % segments
+        )
