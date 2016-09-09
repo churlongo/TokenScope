@@ -81,3 +81,10 @@ def decode_token(raw: str) -> DecodedToken:
     errors: list[str] = []
     stripped = raw.strip()
     parts = stripped.split(".")
+    segments = len(parts)
+
+    header_b64 = parts[0] if len(parts) >= 1 else ""
+    payload_b64 = parts[1] if len(parts) >= 2 else ""
+    signature_b64 = parts[2] if len(parts) >= 3 else ""
+
+    if segments < 2:
