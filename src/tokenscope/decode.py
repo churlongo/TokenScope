@@ -95,3 +95,10 @@ def decode_token(raw: str) -> DecodedToken:
         errors.append(
             "expected at most 3 segments, found %d; extra '.' in token" % segments
         )
+
+    header: dict[str, Any] = {}
+    payload: dict[str, Any] = {}
+
+    if header_b64:
+        d = b64url.decode_segment(header_b64)
+        if not d.ok:
