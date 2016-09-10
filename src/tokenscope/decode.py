@@ -102,3 +102,10 @@ def decode_token(raw: str) -> DecodedToken:
     if header_b64:
         d = b64url.decode_segment(header_b64)
         if not d.ok:
+            errors.append("header segment: %s" % d.error)
+        else:
+            header, err = _parse_json_object(d.data, "header")
+            if err:
+                errors.append(err)
+    else:
+        errors.append("header segment is empty")
