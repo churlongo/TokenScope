@@ -109,3 +109,10 @@ def decode_token(raw: str) -> DecodedToken:
                 errors.append(err)
     else:
         errors.append("header segment is empty")
+
+    if payload_b64:
+        d = b64url.decode_segment(payload_b64)
+        if not d.ok:
+            errors.append("payload segment: %s" % d.error)
+        else:
+            payload, err = _parse_json_object(d.data, "payload")
