@@ -380,3 +380,51 @@ unsupported cases, report rendering, and the CLI exit codes.
 ```
 $ PYTHONPATH=src python -m unittest discover -s tests -v
 ...
+Ran 28 tests in 0.007s
+
+OK
+```
+
+## Integration notes
+
+In CI, run `audit` over your token dump and let the exit code gate the job:
+exit 1 means findings, exit 0 means clean. Because output is deterministic, you
+can commit a baseline audit and diff a later run in git to see exactly which
+findings appeared or cleared. The `--now` flag lets a CI job pin the reference
+time so a token that expires between runs does not flip the result unexpectedly.
+
+## Limitations
+
+This tool does what it can prove and stops there.
+
+- It verifies only the HMAC family (HS256, HS384, HS512). It does not verify
+  RSA or ECDSA signatures and returns `unsupported` for them, because a correct
+  asymmetric verifier is not implemented here.
+- It cannot tell you whether a signature is valid for an `alg none` token,
+  because there is no signature.
+- It does not fetch keys, JWKS documents, or any network resource. Key rotation
+  is judged only by the presence of a `kid` header, not by resolving the key.
+- It does not decrypt JWE (encrypted tokens). It handles signed and unsecured
+  compact tokens only.
+- It does not validate claim values against a schema beyond type and time
+  checks. It will not tell you that an `iss` is the wrong issuer, only that it
+  is present and a string.
+- The confusion advisory (TS004) is a policy level signal, not proof that a
+  specific verifier is misconfigured. It marks the precondition.
+
+## Roadmap
+
+Without promising dates:
+
+- An optional policy file so required claims, allowed algorithms, and limits can
+  be declared per project rather than using the built in default.
+- A JSON output mode alongside the line-oriented text, for machine consumers.
+- Recognition of JWE compact serialization so an encrypted token is reported as
+  out of scope rather than as a decode error.
+
+## License
+
+MIT. See [LICENSE](LICENSE). The samples are test vectors signed with a public
+secret documented in [samples/README.md](samples/README.md).
+
+<!-- draft note 87 -->
