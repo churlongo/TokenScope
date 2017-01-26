@@ -30,3 +30,19 @@ _NUMERIC_DATE_CLAIMS = ("exp", "nbf", "iat")
 @dataclass(frozen=True)
 class Finding:
     """One audited fact about a token.
+
+    rule:     stable identifier such as TS001.
+    severity: high, medium, low, or info.
+    message:  a single line stating the fact, no trailing period.
+    """
+
+    rule: str
+    severity: str
+    message: str
+
+    def sort_key(self) -> tuple[int, str]:
+        return (SEVERITY_ORDER.get(self.severity, 9), self.rule)
+
+
+def _is_numeric_date(value: object) -> bool:
+    """True when value is a JSON number usable as a NumericDate.
