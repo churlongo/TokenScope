@@ -77,3 +77,19 @@ def _alg_findings(token: DecodedToken, policy: Policy) -> list[Finding]:
             Finding(
                 "TS002",
                 "high",
+                "alg is 'none': token is unsecured and any signature is ignored",
+            )
+        )
+        return findings
+    if not policy.allows_alg(alg):
+        findings.append(
+            Finding(
+                "TS003",
+                "high",
+                "alg %r is not in the policy allow list" % alg,
+            )
+        )
+    return findings
+
+
+def _confusion_findings(token: DecodedToken, policy: Policy) -> list[Finding]:
