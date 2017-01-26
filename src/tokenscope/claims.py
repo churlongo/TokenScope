@@ -62,3 +62,18 @@ def _alg_findings(token: DecodedToken, policy: Policy) -> list[Finding]:
         findings.append(
             Finding("TS001", "high", "header has no 'alg' field")
         )
+        return findings
+    if not isinstance(alg, str):
+        findings.append(
+            Finding(
+                "TS001",
+                "high",
+                "header 'alg' is a %s, not a string" % type(alg).__name__,
+            )
+        )
+        return findings
+    if alg.lower() == "none":
+        findings.append(
+            Finding(
+                "TS002",
+                "high",
