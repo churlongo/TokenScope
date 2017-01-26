@@ -46,3 +46,19 @@ class Finding:
 
 def _is_numeric_date(value: object) -> bool:
     """True when value is a JSON number usable as a NumericDate.
+
+    RFC 7519 defines NumericDate as a number of seconds since the epoch. A bool
+    is a subtype of int in Python, so it is excluded explicitly.
+    """
+    if isinstance(value, bool):
+        return False
+    return isinstance(value, (int, float))
+
+
+def _alg_findings(token: DecodedToken, policy: Policy) -> list[Finding]:
+    findings: list[Finding] = []
+    alg = token.header.get("alg")
+    if alg is None:
+        findings.append(
+            Finding("TS001", "high", "header has no 'alg' field")
+        )
