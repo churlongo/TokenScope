@@ -93,3 +93,19 @@ def _alg_findings(token: DecodedToken, policy: Policy) -> list[Finding]:
 
 
 def _confusion_findings(token: DecodedToken, policy: Policy) -> list[Finding]:
+    """Flag algorithm confusion exposure.
+
+    The classic attack: a server configured to verify RS256 is handed a token
+    whose header says HS256, and if it feeds the RSA public key into an HMAC
+    verifier the public key becomes the shared secret. We cannot know the
+    server's configuration from the token alone, so we report the exposure
+    whenever an HMAC-signed token is present in a set whose policy also permits
+    RSA, which is the condition under which the confusion is possible.
+    """
+    alg = token.header.get("alg")
+    if not isinstance(alg, str):
+        return []
+    if not policy.is_hmac(alg):
+        return []
+    rsa_allowed = any(policy.is_rsa(a) for a in policy.allowed_algs)
+    if not rsa_allowed:
