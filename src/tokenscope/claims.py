@@ -124,3 +124,19 @@ def _confusion_findings(token: DecodedToken, policy: Policy) -> list[Finding]:
 def _kid_findings(token: DecodedToken, policy: Policy) -> list[Finding]:
     if not policy.key_rotation:
         return []
+    alg = token.header.get("alg")
+    if isinstance(alg, str) and alg.lower() == "none":
+        return []
+    if "kid" not in token.header:
+        return [
+            Finding(
+                "TS005",
+                "medium",
+                "no 'kid' header while policy declares key rotation: verifier "
+                "cannot select the signing key",
+            )
+        ]
+    return []
+
+
+def _presence_findings(token: DecodedToken, policy: Policy) -> list[Finding]:
