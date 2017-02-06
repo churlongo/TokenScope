@@ -140,3 +140,19 @@ def _kid_findings(token: DecodedToken, policy: Policy) -> list[Finding]:
 
 
 def _presence_findings(token: DecodedToken, policy: Policy) -> list[Finding]:
+    findings: list[Finding] = []
+    for claim in policy.required_claims:
+        if claim not in token.payload:
+            findings.append(
+                Finding(
+                    "TS006",
+                    "medium",
+                    "required claim %r is missing" % claim,
+                )
+            )
+    return findings
+
+
+def _type_findings(token: DecodedToken) -> list[Finding]:
+    findings: list[Finding] = []
+    for claim in _NUMERIC_DATE_CLAIMS:
