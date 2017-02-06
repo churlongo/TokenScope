@@ -156,3 +156,19 @@ def _presence_findings(token: DecodedToken, policy: Policy) -> list[Finding]:
 def _type_findings(token: DecodedToken) -> list[Finding]:
     findings: list[Finding] = []
     for claim in _NUMERIC_DATE_CLAIMS:
+        if claim in token.payload and not _is_numeric_date(token.payload[claim]):
+            findings.append(
+                Finding(
+                    "TS007",
+                    "medium",
+                    "claim %r must be a numeric date, found %s"
+                    % (claim, type(token.payload[claim]).__name__),
+                )
+            )
+    if "aud" in token.payload:
+        aud = token.payload["aud"]
+        aud_ok = isinstance(aud, str) or (
+            isinstance(aud, list) and all(isinstance(x, str) for x in aud)
+        )
+        if not aud_ok:
+            findings.append(
