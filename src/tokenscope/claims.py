@@ -172,3 +172,18 @@ def _type_findings(token: DecodedToken) -> list[Finding]:
         )
         if not aud_ok:
             findings.append(
+                Finding(
+                    "TS007",
+                    "medium",
+                    "claim 'aud' must be a string or list of strings",
+                )
+            )
+    for claim in ("iss", "sub"):
+        if claim in token.payload and not isinstance(token.payload[claim], str):
+            findings.append(
+                Finding(
+                    "TS007",
+                    "medium",
+                    "claim %r must be a string, found %s"
+                    % (claim, type(token.payload[claim]).__name__),
+                )
