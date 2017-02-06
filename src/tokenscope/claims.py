@@ -109,3 +109,18 @@ def _confusion_findings(token: DecodedToken, policy: Policy) -> list[Finding]:
         return []
     rsa_allowed = any(policy.is_rsa(a) for a in policy.allowed_algs)
     if not rsa_allowed:
+        return []
+    return [
+        Finding(
+            "TS004",
+            "high",
+            "HMAC alg %s under a policy that also allows RSA: algorithm "
+            "confusion risk if an RSA public key is used as the HMAC secret"
+            % alg,
+        )
+    ]
+
+
+def _kid_findings(token: DecodedToken, policy: Policy) -> list[Finding]:
+    if not policy.key_rotation:
+        return []
