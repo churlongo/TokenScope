@@ -187,3 +187,19 @@ def _type_findings(token: DecodedToken) -> list[Finding]:
                     "claim %r must be a string, found %s"
                     % (claim, type(token.payload[claim]).__name__),
                 )
+            )
+    return findings
+
+
+def _time_findings(token: DecodedToken, policy: Policy, now: int) -> list[Finding]:
+    findings: list[Finding] = []
+    exp = token.payload.get("exp")
+    nbf = token.payload.get("nbf")
+    iat = token.payload.get("iat")
+
+    skew = policy.clock_skew_seconds
+
+    if _is_numeric_date(exp):
+        exp_i = int(exp)
+        if exp_i < now - skew:
+            findings.append(
