@@ -219,3 +219,19 @@ def _time_findings(token: DecodedToken, policy: Policy, now: int) -> list[Findin
                     % (exp_i, now),
                 )
             )
+
+    if _is_numeric_date(nbf):
+        nbf_i = int(nbf)
+        if nbf_i > now + skew:
+            findings.append(
+                Finding(
+                    "TS010",
+                    "medium",
+                    "token not valid before %d, after now %d (skew %d)"
+                    % (nbf_i, now, skew),
+                )
+            )
+        elif nbf_i > now:
+            findings.append(
+                Finding(
+                    "TS009",
