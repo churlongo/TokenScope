@@ -203,3 +203,19 @@ def _time_findings(token: DecodedToken, policy: Policy, now: int) -> list[Findin
         exp_i = int(exp)
         if exp_i < now - skew:
             findings.append(
+                Finding(
+                    "TS008",
+                    "high",
+                    "token expired at %d, before now %d (skew %d)"
+                    % (exp_i, now, skew),
+                )
+            )
+        elif exp_i < now:
+            findings.append(
+                Finding(
+                    "TS009",
+                    "low",
+                    "token exp %d is within clock skew of now %d: skew hazard"
+                    % (exp_i, now),
+                )
+            )
