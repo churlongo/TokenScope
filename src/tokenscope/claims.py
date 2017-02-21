@@ -250,3 +250,19 @@ def _time_findings(token: DecodedToken, policy: Policy, now: int) -> list[Findin
     if start is not None and _is_numeric_date(exp):
         lifetime = int(exp) - start
         if lifetime > policy.max_lifetime_seconds:
+            findings.append(
+                Finding(
+                    "TS011",
+                    "high",
+                    "lifetime %d s exceeds policy maximum %d s"
+                    % (lifetime, policy.max_lifetime_seconds),
+                )
+            )
+        elif lifetime < 0:
+            findings.append(
+                Finding(
+                    "TS012",
+                    "medium",
+                    "negative lifetime: exp %d precedes start %d"
+                    % (int(exp), start),
+                )
