@@ -235,3 +235,18 @@ def _time_findings(token: DecodedToken, policy: Policy, now: int) -> list[Findin
             findings.append(
                 Finding(
                     "TS009",
+                    "low",
+                    "token nbf %d is within clock skew of now %d: skew hazard"
+                    % (nbf_i, now),
+                )
+            )
+
+    # Lifetime measured from iat when present, otherwise from nbf.
+    start = None
+    if _is_numeric_date(iat):
+        start = int(iat)
+    elif _is_numeric_date(nbf):
+        start = int(nbf)
+    if start is not None and _is_numeric_date(exp):
+        lifetime = int(exp) - start
+        if lifetime > policy.max_lifetime_seconds:
