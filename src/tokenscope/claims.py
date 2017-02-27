@@ -266,3 +266,19 @@ def _time_findings(token: DecodedToken, policy: Policy, now: int) -> list[Findin
                     "negative lifetime: exp %d precedes start %d"
                     % (int(exp), start),
                 )
+            )
+
+    if _is_numeric_date(iat) and int(iat) > now + skew:
+        findings.append(
+            Finding(
+                "TS013",
+                "low",
+                "iat %d is in the future relative to now %d: clock hazard"
+                % (int(iat), now),
+            )
+        )
+    return findings
+
+
+def _size_findings(token: DecodedToken, policy: Policy) -> list[Finding]:
+    size = len(token.payload_b64)
