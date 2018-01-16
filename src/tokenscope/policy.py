@@ -11,3 +11,9 @@ a policy file. It is deliberately strict so that a clean result means something.
 
 from __future__ import annotations
 
+from dataclasses import dataclass, field
+
+# Registered claims that a well formed access token is expected to carry.
+# Names come from RFC 7519 section 4.1.
+_DEFAULT_REQUIRED = ("exp", "iat", "iss", "sub", "aud")
+
