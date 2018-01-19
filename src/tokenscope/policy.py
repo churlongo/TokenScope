@@ -23,3 +23,9 @@ _DEFAULT_ALLOWED_ALGS = ("HS256", "HS384", "HS512", "RS256", "RS384", "RS512")
 
 
 @dataclass(frozen=True)
+class Policy:
+    """The expectations a token set is audited against.
+
+    max_lifetime_seconds:  largest allowed span from iat (or nbf) to exp.
+    required_claims:       claims that must be present and well formed.
+    allowed_algs:          the `alg` values considered acceptable.
