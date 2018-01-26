@@ -29,3 +29,9 @@ class Policy:
     max_lifetime_seconds:  largest allowed span from iat (or nbf) to exp.
     required_claims:       claims that must be present and well formed.
     allowed_algs:          the `alg` values considered acceptable.
+    clock_skew_seconds:    tolerance applied when judging nbf and exp so that a
+                           token a few seconds out of range is flagged as a
+                           skew hazard rather than a hard failure.
+    key_rotation:          when True, a token is expected to carry a `kid`
+                           header so a rotating key set can select the key.
+    max_payload_bytes:     largest acceptable decoded payload size.
