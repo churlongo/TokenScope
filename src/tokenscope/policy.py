@@ -47,3 +47,9 @@ class Policy:
     max_payload_bytes: int = 4096
 
     def allows_alg(self, alg: str) -> bool:
+        """True when alg is on the allowed list, compared case-sensitively.
+
+        JWT algorithm names are case sensitive (RFC 7518), so `hs256` is not
+        `HS256` and is treated as disallowed.
+        """
+        return alg in self.allowed_algs
