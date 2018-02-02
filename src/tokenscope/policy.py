@@ -41,3 +41,9 @@ class Policy:
     required_claims: tuple[str, ...] = field(default_factory=lambda: _DEFAULT_REQUIRED)
     allowed_algs: tuple[str, ...] = field(
         default_factory=lambda: _DEFAULT_ALLOWED_ALGS
+    )
+    clock_skew_seconds: int = 60
+    key_rotation: bool = True
+    max_payload_bytes: int = 4096
+
+    def allows_alg(self, alg: str) -> bool:
