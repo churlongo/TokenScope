@@ -53,3 +53,8 @@ class Policy:
         `HS256` and is treated as disallowed.
         """
         return alg in self.allowed_algs
+
+    def is_hmac(self, alg: str) -> bool:
+        """True for the HMAC family (HS256, HS384, HS512)."""
+        return alg in ("HS256", "HS384", "HS512")
+
