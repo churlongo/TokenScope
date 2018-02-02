@@ -35,3 +35,9 @@ class Policy:
     key_rotation:          when True, a token is expected to carry a `kid`
                            header so a rotating key set can select the key.
     max_payload_bytes:     largest acceptable decoded payload size.
+    """
+
+    max_lifetime_seconds: int = 3600
+    required_claims: tuple[str, ...] = field(default_factory=lambda: _DEFAULT_REQUIRED)
+    allowed_algs: tuple[str, ...] = field(
+        default_factory=lambda: _DEFAULT_ALLOWED_ALGS
