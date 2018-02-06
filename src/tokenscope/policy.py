@@ -58,3 +58,9 @@ class Policy:
         """True for the HMAC family (HS256, HS384, HS512)."""
         return alg in ("HS256", "HS384", "HS512")
 
+    def is_rsa(self, alg: str) -> bool:
+        """True for the RSA family (RS256, RS384, RS512)."""
+        return alg in ("RS256", "RS384", "RS512")
+
+
+DEFAULT_POLICY = Policy()
