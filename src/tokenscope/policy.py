@@ -64,3 +64,15 @@ class Policy:
 
 
 DEFAULT_POLICY = Policy()
+
+
+def describe(policy: Policy) -> list[str]:
+    """Return the policy as sorted, line-oriented text for the report header."""
+    lines = [
+        "max_lifetime_seconds: %d" % policy.max_lifetime_seconds,
+        "clock_skew_seconds:   %d" % policy.clock_skew_seconds,
+        "key_rotation:         %s" % ("yes" if policy.key_rotation else "no"),
+        "max_payload_bytes:    %d" % policy.max_payload_bytes,
+        "required_claims:      %s" % ", ".join(policy.required_claims),
+        "allowed_algs:         %s" % ", ".join(policy.allowed_algs),
+    ]
