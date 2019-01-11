@@ -6,3 +6,11 @@ comparison runs in constant time. It refuses to pretend it can check RSA or
 ECDSA signatures, because doing that correctly needs big-integer modular
 arithmetic and curve maths that are not implemented here. For asymmetric
 algorithms it returns a clear "unsupported" verdict rather than a false pass.
+"""
+
+from __future__ import annotations
+
+import hashlib
+import hmac
+from dataclasses import dataclass
+
