@@ -14,3 +14,11 @@ import hashlib
 import hmac
 from dataclasses import dataclass
 
+from . import b64url
+from .decode import DecodedToken
+
+# Map JWT HMAC algorithm names to their hashlib constructors.
+_HMAC_HASHES = {
+    "HS256": hashlib.sha256,
+    "HS384": hashlib.sha384,
+    "HS512": hashlib.sha512,
