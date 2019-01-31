@@ -22,3 +22,12 @@ _HMAC_HASHES = {
     "HS256": hashlib.sha256,
     "HS384": hashlib.sha384,
     "HS512": hashlib.sha512,
+}
+
+# Verdict values, kept as plain strings for line-oriented output.
+VALID = "valid"
+INVALID = "invalid"
+UNSUPPORTED = "unsupported"
+ERROR = "error"
+
+
