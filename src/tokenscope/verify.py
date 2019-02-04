@@ -31,3 +31,11 @@ UNSUPPORTED = "unsupported"
 ERROR = "error"
 
 
+@dataclass(frozen=True)
+class Verdict:
+    """Outcome of a verification attempt.
+
+    status:  one of valid, invalid, unsupported, error.
+    detail:  a single line explaining the outcome.
+    """
+
