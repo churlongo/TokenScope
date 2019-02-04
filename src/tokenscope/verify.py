@@ -39,3 +39,11 @@ class Verdict:
     detail:  a single line explaining the outcome.
     """
 
+    status: str
+    detail: str
+
+
+def verify(token: DecodedToken, secret: bytes) -> Verdict:
+    """Attempt to verify one token with the supplied shared secret.
+
+    Only the HMAC family is verified. Asymmetric algorithms return UNSUPPORTED.
