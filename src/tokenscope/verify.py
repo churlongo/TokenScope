@@ -55,3 +55,12 @@ def verify(token: DecodedToken, secret: bytes) -> Verdict:
         return Verdict(ERROR, "header 'alg' is missing or not a string")
     if alg.lower() == "none":
         return Verdict(
+            UNSUPPORTED,
+            "alg 'none' carries no signature to verify",
+        )
+    if alg not in _HMAC_HASHES:
+        return Verdict(
+            UNSUPPORTED,
+            "alg %s is asymmetric; this tool verifies only the HMAC family "
+            "(HS256, HS384, HS512)" % alg,
+        )
