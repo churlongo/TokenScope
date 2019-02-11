@@ -47,3 +47,11 @@ def verify(token: DecodedToken, secret: bytes) -> Verdict:
     """Attempt to verify one token with the supplied shared secret.
 
     Only the HMAC family is verified. Asymmetric algorithms return UNSUPPORTED.
+    A missing or malformed signature segment returns ERROR. A recomputed MAC
+    that does not match returns INVALID.
+    """
+    alg = token.header.get("alg")
+    if not isinstance(alg, str):
+        return Verdict(ERROR, "header 'alg' is missing or not a string")
+    if alg.lower() == "none":
+        return Verdict(
