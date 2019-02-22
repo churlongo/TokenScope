@@ -1,0 +1,16 @@
+"""Command line interface for tokenscope.
+
+Subcommands:
+
+    inspect  decode each token and print its header and payload, no judgement
+    audit    apply the policy and print findings per token, exit 1 on findings
+    verify   verify HMAC signatures with a supplied secret, exit 1 on failures
+    version  print the package version
+
+Exit codes: 0 clean, 1 findings present, 2 usage error. argparse itself exits
+with 2 on argument errors, which matches the standard.
+
+Determinism: the auditor never reads the wall clock. The reference time used for
+claim checks is taken from --now, which defaults to a fixed recorded epoch so
+that a run is byte-for-byte reproducible. The chosen value is printed in the
+audit header.
