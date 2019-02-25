@@ -92,3 +92,16 @@ def _cmd_verify(args: argparse.Namespace) -> int:
         return 2
     secret = args.secret.encode("utf-8")
     failures = 0
+    for index, raw in enumerate(tokens):
+        token = decode.decode_token(raw)
+        verdict = verify(token, secret)
+        for line in report.render_verify(index, token, verdict):
+            print(line)
+        # A failure to confirm a signature counts as a finding, except the
+        # honest "unsupported" verdict for asymmetric algorithms, which is a
+        # limitation of this tool rather than a fault in the token.
+        if verdict.status not in (VALID, UNSUPPORTED):
+            failures += 1
+    return 1 if failures else 0
+
+
