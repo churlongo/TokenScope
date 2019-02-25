@@ -79,3 +79,16 @@ def _cmd_audit(args: argparse.Namespace) -> int:
         for f in findings:
             by_severity[f.severity] = by_severity.get(f.severity, 0) + 1
         for line in report.render_audit_token(index, token, findings):
+            print(line)
+    for line in report.render_audit_summary(total, by_severity):
+        print(line)
+    return 1 if total else 0
+
+
+def _cmd_verify(args: argparse.Namespace) -> int:
+    tokens, error = _read_tokens(args.file)
+    if error is not None:
+        print("error: %s" % error, file=sys.stderr)
+        return 2
+    secret = args.secret.encode("utf-8")
+    failures = 0
