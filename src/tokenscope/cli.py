@@ -27,3 +27,16 @@ from .verify import VALID, UNSUPPORTED, verify
 
 # Fixed reference time so audit output is reproducible without the wall clock.
 # 2026-01-01T00:00:00Z. Recorded in the audit header on every run.
+DEFAULT_NOW = 1767225600
+
+
+def _read_tokens(path: str) -> tuple[list[str], str | None]:
+    """Read a token file, one token per non-empty, non-comment line.
+
+    Returns (tokens, error). Lines beginning with '#' are treated as comments.
+    """
+    try:
+        with open(path, "r", encoding="utf-8") as handle:
+            raw_lines = handle.read().splitlines()
+    except OSError as exc:
+        return [], "cannot read %s: %s" % (path, exc)
