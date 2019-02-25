@@ -40,3 +40,16 @@ def _read_tokens(path: str) -> tuple[list[str], str | None]:
             raw_lines = handle.read().splitlines()
     except OSError as exc:
         return [], "cannot read %s: %s" % (path, exc)
+    tokens = []
+    for line in raw_lines:
+        stripped = line.strip()
+        if not stripped or stripped.startswith("#"):
+            continue
+        tokens.append(stripped)
+    return tokens, None
+
+
+def _cmd_inspect(args: argparse.Namespace) -> int:
+    tokens, error = _read_tokens(args.file)
+    if error is not None:
+        print("error: %s" % error, file=sys.stderr)
