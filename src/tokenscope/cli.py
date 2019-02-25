@@ -53,3 +53,16 @@ def _cmd_inspect(args: argparse.Namespace) -> int:
     tokens, error = _read_tokens(args.file)
     if error is not None:
         print("error: %s" % error, file=sys.stderr)
+        return 2
+    for index, raw in enumerate(tokens):
+        token = decode.decode_token(raw)
+        for line in report.render_inspect(index, token):
+            print(line)
+    return 0
+
+
+def _cmd_audit(args: argparse.Namespace) -> int:
+    tokens, error = _read_tokens(args.file)
+    if error is not None:
+        print("error: %s" % error, file=sys.stderr)
+        return 2
