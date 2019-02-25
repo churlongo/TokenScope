@@ -66,3 +66,16 @@ def _cmd_audit(args: argparse.Namespace) -> int:
     if error is not None:
         print("error: %s" % error, file=sys.stderr)
         return 2
+    policy = DEFAULT_POLICY
+    now = args.now
+    for line in report.render_audit_header(policy, now, args.file, len(tokens)):
+        print(line)
+    total = 0
+    by_severity: dict[str, int] = {}
+    for index, raw in enumerate(tokens):
+        token = decode.decode_token(raw)
+        findings = claims.audit_claims(token, policy, now)
+        total += len(findings)
+        for f in findings:
+            by_severity[f.severity] = by_severity.get(f.severity, 0) + 1
+        for line in report.render_audit_token(index, token, findings):
