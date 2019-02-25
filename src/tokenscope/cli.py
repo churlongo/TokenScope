@@ -14,3 +14,16 @@ Determinism: the auditor never reads the wall clock. The reference time used for
 claim checks is taken from --now, which defaults to a fixed recorded epoch so
 that a run is byte-for-byte reproducible. The chosen value is printed in the
 audit header.
+"""
+
+from __future__ import annotations
+
+import argparse
+import sys
+
+from . import __version__, claims, decode, report
+from .policy import DEFAULT_POLICY
+from .verify import VALID, UNSUPPORTED, verify
+
+# Fixed reference time so audit output is reproducible without the wall clock.
+# 2026-01-01T00:00:00Z. Recorded in the audit header on every run.
