@@ -105,3 +105,16 @@ def _cmd_verify(args: argparse.Namespace) -> int:
     return 1 if failures else 0
 
 
+def _cmd_version(args: argparse.Namespace) -> int:
+    print("tokenscope %s" % __version__)
+    return 0
+
+
+def build_parser() -> argparse.ArgumentParser:
+    parser = argparse.ArgumentParser(
+        prog="tokenscope",
+        description="Offline structural auditor for JWT and JWS tokens.",
+    )
+    sub = parser.add_subparsers(dest="command", required=True)
+
+    p_inspect = sub.add_parser(
