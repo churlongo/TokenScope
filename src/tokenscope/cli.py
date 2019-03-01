@@ -118,3 +118,17 @@ def build_parser() -> argparse.ArgumentParser:
     sub = parser.add_subparsers(dest="command", required=True)
 
     p_inspect = sub.add_parser(
+        "inspect", help="decode header and payload of each token, no judgement"
+    )
+    p_inspect.add_argument("file", help="file of tokens, one per line")
+    p_inspect.set_defaults(func=_cmd_inspect)
+
+    p_audit = sub.add_parser(
+        "audit", help="apply the policy and print findings per token"
+    )
+    p_audit.add_argument("file", help="file of tokens, one per line")
+    p_audit.add_argument(
+        "--now",
+        type=int,
+        default=DEFAULT_NOW,
+        help="reference Unix time for claim checks (default %d)" % DEFAULT_NOW,
