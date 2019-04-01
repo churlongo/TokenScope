@@ -23,3 +23,11 @@ def render_inspect(index: int, token: DecodedToken) -> list[str]:
     lines = ["token[%d]:" % index]
     lines.append("  segments: %d" % token.segments)
     if token.errors:
+        for err in token.errors:
+            lines.append("  decode-error: %s" % err)
+    lines.append("  header: %s" % _canonical_json(token.header))
+    lines.append("  payload: %s" % _canonical_json(token.payload))
+    present = present_claims(token)
+    lines.append("  registered-claims-present: %s" % (", ".join(present) or "none"))
+    return lines
+
