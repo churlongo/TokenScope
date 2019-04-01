@@ -14,3 +14,12 @@ from .claims import Finding, present_claims
 from .decode import DecodedToken
 from .policy import Policy, describe
 from .verify import Verdict
+
+_REGISTERED = ("iss", "sub", "aud", "exp", "nbf", "iat")
+
+
+def render_inspect(index: int, token: DecodedToken) -> list[str]:
+    """Render the decoded header and payload for one token without judging it."""
+    lines = ["token[%d]:" % index]
+    lines.append("  segments: %d" % token.segments)
+    if token.errors:
