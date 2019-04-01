@@ -40,3 +40,11 @@ def _canonical_json(obj: dict) -> str:
 def render_audit_header(policy: Policy, now: int, source: str, count: int) -> list[str]:
     lines = [
         "tokenscope audit",
+        "source: %s" % source,
+        "tokens: %d" % count,
+        "now:    %d" % now,
+        "policy:",
+    ]
+    for line in describe(policy):
+        lines.append("  " + line)
+    lines.append("")
