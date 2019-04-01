@@ -31,3 +31,12 @@ def render_inspect(index: int, token: DecodedToken) -> list[str]:
     lines.append("  registered-claims-present: %s" % (", ".join(present) or "none"))
     return lines
 
+
+def _canonical_json(obj: dict) -> str:
+    """Serialize with sorted keys and compact separators for stable output."""
+    return json.dumps(obj, sort_keys=True, separators=(",", ":"), ensure_ascii=True)
+
+
+def render_audit_header(policy: Policy, now: int, source: str, count: int) -> list[str]:
+    lines = [
+        "tokenscope audit",
