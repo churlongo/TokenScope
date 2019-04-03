@@ -57,3 +57,11 @@ def render_audit_token(index: int, token: DecodedToken, findings: list[Finding])
     if not isinstance(alg, str):
         alg = "(non-string)"
     lines = ["token[%d] alg=%s findings=%d" % (index, alg, len(findings))]
+    if not findings:
+        lines.append("  OK no findings")
+    else:
+        for f in findings:
+            lines.append("  [%s] %s %s" % (f.severity.upper(), f.rule, f.message))
+    return lines
+
+
