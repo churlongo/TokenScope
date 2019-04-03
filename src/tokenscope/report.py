@@ -48,3 +48,12 @@ def render_audit_header(policy: Policy, now: int, source: str, count: int) -> li
     for line in describe(policy):
         lines.append("  " + line)
     lines.append("")
+    return lines
+
+
+def render_audit_token(index: int, token: DecodedToken, findings: list[Finding]) -> list[str]:
+    """Render one token's findings block."""
+    alg = token.header.get("alg", "?")
+    if not isinstance(alg, str):
+        alg = "(non-string)"
+    lines = ["token[%d] alg=%s findings=%d" % (index, alg, len(findings))]
