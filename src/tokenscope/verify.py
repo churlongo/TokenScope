@@ -64,3 +64,17 @@ def verify(token: DecodedToken, secret: bytes) -> Verdict:
             "alg %s is asymmetric; this tool verifies only the HMAC family "
             "(HS256, HS384, HS512)" % alg,
         )
+    if not token.signature_b64:
+        return Verdict(ERROR, "no signature segment present to verify")
+
+    provided = b64url.decode_segment(token.signature_b64)
+    if not provided.ok:
+        return Verdict(ERROR, "signature segment: %s" % provided.error)
+
+    digestmod = _HMAC_HASHES[alg]
+    computed = hmac.new(secret, token.signing_input, digestmod).digest()
+    if hmac.compare_digest(computed, provided.data):
+        return Verdict(VALID, "HMAC %s signature verified against supplied secret" % alg)
+    return Verdict(
+        INVALID,
+        "HMAC %s signature does not match: wrong secret or tampered token" % alg,
