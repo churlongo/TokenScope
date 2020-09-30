@@ -427,4 +427,4 @@ Without promising dates:
 MIT. See [LICENSE](LICENSE). The samples are test vectors signed with a public
 secret documented in [samples/README.md](samples/README.md).
 
-<!-- draft note 570 -->
+<!-- draft note 571 -->
