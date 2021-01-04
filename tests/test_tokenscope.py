@@ -48,3 +48,21 @@ class B64UrlTests(unittest.TestCase):
     def test_padding_added_is_reported(self):
         # 'hell' is 4 bytes, encoding to 6 base64url chars needing two pad chars.
         encoded = _b64(b"hell")
+        result = b64url.decode_segment(encoded)
+        self.assertTrue(result.ok)
+        self.assertEqual(result.padding_added, 2)
+
+    def test_standard_base64_char_rejected(self):
+        result = b64url.decode_segment("ab+d")
+        self.assertFalse(result.ok)
+        self.assertIn("standard base64", result.error)
+
+    def test_invalid_length_rejected(self):
+        result = b64url.decode_segment("abcde")  # 5 chars, 1 mod 4
+        self.assertFalse(result.ok)
+        self.assertIn("never valid", result.error)
+
+    def test_stray_char_rejected(self):
+        result = b64url.decode_segment("ab$d")
+        self.assertFalse(result.ok)
+        self.assertIn("alphabet", result.error)
