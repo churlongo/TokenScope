@@ -84,3 +84,21 @@ class DecodeTests(unittest.TestCase):
     def test_too_few_segments(self):
         d = decode.decode_token("onlyonesegment")
         self.assertFalse(d.ok)
+        self.assertTrue(any("at least 2" in e for e in d.errors))
+
+    def test_corrupt_payload_json(self):
+        header = _b64(json.dumps({"alg": "HS256"}).encode())
+        payload = _b64(b"{not json")
+        d = decode.decode_token(header + "." + payload + ".sig")
+        self.assertFalse(d.ok)
+        self.assertTrue(any("not valid JSON" in e for e in d.errors))
+
+    def test_payload_not_object(self):
+        header = _b64(json.dumps({"alg": "HS256"}).encode())
+        payload = _b64(json.dumps([1, 2, 3]).encode())
+        d = decode.decode_token(header + "." + payload + ".sig")
+        self.assertFalse(d.ok)
+        self.assertTrue(any("not an object" in e for e in d.errors))
+
+
+class ClaimsTests(unittest.TestCase):
