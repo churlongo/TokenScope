@@ -66,3 +66,21 @@ class B64UrlTests(unittest.TestCase):
         result = b64url.decode_segment("ab$d")
         self.assertFalse(result.ok)
         self.assertIn("alphabet", result.error)
+
+    def test_empty_segment(self):
+        result = b64url.decode_segment("")
+        self.assertFalse(result.ok)
+
+
+class DecodeTests(unittest.TestCase):
+    def test_good_token_decodes(self):
+        tok = make_token({"alg": "HS256"}, {"sub": "a"}, SECRET)
+        d = decode.decode_token(tok)
+        self.assertTrue(d.ok)
+        self.assertEqual(d.segments, 3)
+        self.assertEqual(d.header["alg"], "HS256")
+        self.assertEqual(d.payload["sub"], "a")
+
+    def test_too_few_segments(self):
+        d = decode.decode_token("onlyonesegment")
+        self.assertFalse(d.ok)
