@@ -120,3 +120,21 @@ class ClaimsTests(unittest.TestCase):
             any(f.rule == "TS006" and "aud" in f.message for f in findings)
         )
 
+    def test_expired_flagged(self):
+        tok = make_token(
+            {"alg": "HS256", "kid": "k"},
+            {
+                "iss": "i",
+                "sub": "s",
+                "aud": "a",
+                "iat": NOW - 7200,
+                "exp": NOW - 3600,
+            },
+            SECRET,
+        )
+        d = decode.decode_token(tok)
+        findings = claims.audit_claims(d, DEFAULT_POLICY, NOW)
+        self.assertTrue(any(f.rule == "TS008" for f in findings))
+
+    def test_excessive_lifetime(self):
+        tok = make_token(
