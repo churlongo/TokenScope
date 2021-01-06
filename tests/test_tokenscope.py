@@ -102,3 +102,21 @@ class DecodeTests(unittest.TestCase):
 
 
 class ClaimsTests(unittest.TestCase):
+    def test_alg_none_flagged(self):
+        tok = make_token({"alg": "none"}, {"sub": "a"})
+        d = decode.decode_token(tok)
+        findings = claims.audit_claims(d, DEFAULT_POLICY, NOW)
+        self.assertTrue(any(f.rule == "TS002" for f in findings))
+
+    def test_missing_required_claim(self):
+        tok = make_token(
+            {"alg": "HS256", "kid": "k"},
+            {"iss": "i", "sub": "s", "exp": NOW + 100, "iat": NOW},
+            SECRET,
+        )
+        d = decode.decode_token(tok)
+        findings = claims.audit_claims(d, DEFAULT_POLICY, NOW)
+        self.assertTrue(
+            any(f.rule == "TS006" and "aud" in f.message for f in findings)
+        )
+
