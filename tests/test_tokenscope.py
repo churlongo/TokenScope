@@ -192,3 +192,21 @@ class ClaimsTests(unittest.TestCase):
                 "iss": "i",
                 "sub": "s",
                 "aud": "a",
+                "iat": NOW,
+                "exp": NOW + 100,
+            },
+            SECRET,
+        )
+        d = decode.decode_token(tok)
+        findings = claims.audit_claims(d, policy, NOW)
+        self.assertFalse(any(f.rule == "TS004" for f in findings))
+
+    def test_oversized_payload(self):
+        policy = Policy(max_payload_bytes=10)
+        tok = make_token(
+            {"alg": "HS256", "kid": "k"},
+            {
+                "iss": "i",
+                "sub": "s",
+                "aud": "a",
+                "iat": NOW,
