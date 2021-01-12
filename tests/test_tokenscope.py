@@ -156,3 +156,21 @@ class ClaimsTests(unittest.TestCase):
         tok = make_token(
             {"alg": "HS256"},
             {
+                "iss": "i",
+                "sub": "s",
+                "aud": "a",
+                "iat": NOW,
+                "exp": NOW + 100,
+            },
+            SECRET,
+        )
+        d = decode.decode_token(tok)
+        findings = claims.audit_claims(d, DEFAULT_POLICY, NOW)
+        self.assertTrue(any(f.rule == "TS005" for f in findings))
+
+    def test_confusion_risk_for_hmac(self):
+        tok = make_token(
+            {"alg": "HS256", "kid": "k"},
+            {
+                "iss": "i",
+                "sub": "s",
