@@ -210,3 +210,21 @@ class ClaimsTests(unittest.TestCase):
                 "sub": "s",
                 "aud": "a",
                 "iat": NOW,
+                "exp": NOW + 100,
+            },
+            SECRET,
+        )
+        d = decode.decode_token(tok)
+        findings = claims.audit_claims(d, policy, NOW)
+        self.assertTrue(any(f.rule == "TS014" for f in findings))
+
+    def test_bad_numeric_date_type(self):
+        tok = make_token(
+            {"alg": "HS256", "kid": "k"},
+            {
+                "iss": "i",
+                "sub": "s",
+                "aud": "a",
+                "iat": "not-a-number",
+                "exp": NOW + 100,
+            },
