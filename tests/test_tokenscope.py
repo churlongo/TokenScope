@@ -228,3 +228,20 @@ class ClaimsTests(unittest.TestCase):
                 "iat": "not-a-number",
                 "exp": NOW + 100,
             },
+            SECRET,
+        )
+        d = decode.decode_token(tok)
+        findings = claims.audit_claims(d, DEFAULT_POLICY, NOW)
+        self.assertTrue(any(f.rule == "TS007" for f in findings))
+
+
+class VerifyTests(unittest.TestCase):
+    def test_valid_signature(self):
+        tok = make_token({"alg": "HS256"}, {"sub": "a"}, SECRET)
+        d = decode.decode_token(tok)
+        v = verify.verify(d, SECRET)
+        self.assertEqual(v.status, verify.VALID)
+
+    def test_wrong_secret(self):
+        tok = make_token({"alg": "HS256"}, {"sub": "a"}, SECRET)
+        d = decode.decode_token(tok)
