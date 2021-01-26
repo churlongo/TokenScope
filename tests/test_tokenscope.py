@@ -245,3 +245,21 @@ class VerifyTests(unittest.TestCase):
     def test_wrong_secret(self):
         tok = make_token({"alg": "HS256"}, {"sub": "a"}, SECRET)
         d = decode.decode_token(tok)
+        v = verify.verify(d, b"wrong-secret")
+        self.assertEqual(v.status, verify.INVALID)
+
+    def test_asymmetric_unsupported(self):
+        tok = make_token({"alg": "RS256"}, {"sub": "a"}, SECRET)
+        d = decode.decode_token(tok)
+        v = verify.verify(d, SECRET)
+        self.assertEqual(v.status, verify.UNSUPPORTED)
+
+    def test_none_unsupported(self):
+        tok = make_token({"alg": "none"}, {"sub": "a"})
+        d = decode.decode_token(tok)
+        v = verify.verify(d, SECRET)
+        self.assertEqual(v.status, verify.UNSUPPORTED)
+
+
+class ReportTests(unittest.TestCase):
+    def test_inspect_is_line_oriented(self):
