@@ -263,3 +263,21 @@ class VerifyTests(unittest.TestCase):
 
 class ReportTests(unittest.TestCase):
     def test_inspect_is_line_oriented(self):
+        tok = make_token({"alg": "HS256"}, {"sub": "a", "iss": "i"}, SECRET)
+        d = decode.decode_token(tok)
+        lines = report.render_inspect(0, d)
+        self.assertTrue(all(isinstance(x, str) for x in lines))
+        self.assertTrue(lines[0].startswith("token[0]"))
+
+    def test_canonical_json_is_sorted(self):
+        tok = make_token({"alg": "HS256"}, {"b": 2, "a": 1}, SECRET)
+        d = decode.decode_token(tok)
+        lines = report.render_inspect(0, d)
+        payload_line = [x for x in lines if x.strip().startswith("payload:")][0]
+        self.assertIn('{"a":1,"b":2}', payload_line)
+
+
+class CliTests(unittest.TestCase):
+    def _run(self, argv) -> tuple[int, str]:
+        buf = io.StringIO()
+        with redirect_stdout(buf):
