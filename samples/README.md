@@ -14,3 +14,9 @@ your-256-bit-secret
 
 This string appears in widely circulated JWT tutorials and the RFC 7515 style
 examples. It is safe to commit precisely because it is public knowledge. Do not
+use it for anything real. Because the secret is published, `tokenscope verify`
+can confirm the four HMAC tokens against it, which demonstrates that the
+signatures are real rather than placeholder bytes.
+
+## Determinism
+
