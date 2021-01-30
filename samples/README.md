@@ -26,3 +26,9 @@ file produces byte-identical output, and auditing it produces byte-identical
 findings, because the auditor never reads the wall clock.
 
 ## What each token demonstrates
+
+| Line label                               | Intended finding                         |
+| ---------------------------------------- | ---------------------------------------- |
+| good HS256 token, all claims, kid present | none specific to the token (see note)    |
+| alg none unsecured token                 | TS002 alg none                           |
+| expired HS256 token                      | TS008 expired                            |
