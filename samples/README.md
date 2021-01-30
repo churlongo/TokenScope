@@ -32,3 +32,9 @@ findings, because the auditor never reads the wall clock.
 | good HS256 token, all claims, kid present | none specific to the token (see note)    |
 | alg none unsecured token                 | TS002 alg none                           |
 | expired HS256 token                      | TS008 expired                            |
+| HS256 token missing aud claim            | TS006 missing required claim             |
+| HS256 token with thirty day lifetime     | TS011 lifetime over policy maximum       |
+| corrupt payload, not valid JSON          | TS000 decode error                       |
+
+Note: every HMAC token also carries TS004, the algorithm confusion advisory,
+because the default policy allows both the HMAC and RSA families. That advisory
