@@ -20,3 +20,9 @@ signatures are real rather than placeholder bytes.
 
 ## Determinism
 
+All timestamps are fixed relative to `NOW = 1767225600`, which is
+2026-01-01T00:00:00Z and matches `tokenscope.cli.DEFAULT_NOW`. Regenerating the
+file produces byte-identical output, and auditing it produces byte-identical
+findings, because the auditor never reads the wall clock.
+
+## What each token demonstrates
