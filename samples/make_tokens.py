@@ -26,3 +26,16 @@ SECRET = b"your-256-bit-secret"
 NOW = 1767225600
 HOUR = 3600
 DAY = 86400
+
+
+def b64url(data: bytes) -> str:
+    return base64.urlsafe_b64encode(data).rstrip(b"=").decode("ascii")
+
+
+def sign_hs256(header: dict, payload: dict, secret: bytes) -> str:
+    h = b64url(json.dumps(header, sort_keys=True, separators=(",", ":")).encode())
+    p = b64url(json.dumps(payload, sort_keys=True, separators=(",", ":")).encode())
+    signing_input = (h + "." + p).encode("ascii")
+    sig = hmac.new(secret, signing_input, hashlib.sha256).digest()
+    return h + "." + p + "." + b64url(sig)
+
