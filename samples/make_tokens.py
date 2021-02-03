@@ -13,3 +13,16 @@ to the auditor's default reference time so the audit output is deterministic.
 from __future__ import annotations
 
 import base64
+import hashlib
+import hmac
+import json
+import os
+
+# Published test secret. This is the ASCII form used across JWT tutorials and
+# is safe to commit precisely because it is public. Never use it in production.
+SECRET = b"your-256-bit-secret"
+
+# Must match tokenscope.cli.DEFAULT_NOW (2026-01-01T00:00:00Z).
+NOW = 1767225600
+HOUR = 3600
+DAY = 86400
