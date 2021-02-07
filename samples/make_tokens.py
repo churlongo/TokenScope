@@ -65,3 +65,16 @@ def build() -> list[tuple[str, str]]:
     )
     tokens.append(("good HS256 token, all claims, kid present", good))
 
+    # 2. alg none: unsecured token, signature ignored.
+    none_tok = unsecured(
+        {"alg": "none", "typ": "JWT"},
+        {
+            "iss": "https://issuer.example",
+            "sub": "user-1002",
+            "aud": "api.example",
+            "iat": NOW - 60,
+            "exp": NOW + HOUR - 60,
+        },
+    )
+    tokens.append(("alg none unsecured token", none_tok))
+
