@@ -39,3 +39,16 @@ def sign_hs256(header: dict, payload: dict, secret: bytes) -> str:
     sig = hmac.new(secret, signing_input, hashlib.sha256).digest()
     return h + "." + p + "." + b64url(sig)
 
+
+def unsecured(header: dict, payload: dict) -> str:
+    h = b64url(json.dumps(header, sort_keys=True, separators=(",", ":")).encode())
+    p = b64url(json.dumps(payload, sort_keys=True, separators=(",", ":")).encode())
+    return h + "." + p + "."
+
+
+def build() -> list[tuple[str, str]]:
+    tokens: list[tuple[str, str]] = []
+
+    # 1. Good token: HS256, kid present, all required claims, lifetime exactly
+    #    at the policy maximum (iat to exp is one hour).
+    good = sign_hs256(
