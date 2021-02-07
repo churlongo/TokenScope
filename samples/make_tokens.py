@@ -78,3 +78,15 @@ def build() -> list[tuple[str, str]]:
     )
     tokens.append(("alg none unsecured token", none_tok))
 
+    # 3. Expired: exp well before now.
+    expired = sign_hs256(
+        {"alg": "HS256", "typ": "JWT", "kid": "key-2026-01"},
+        {
+            "iss": "https://issuer.example",
+            "sub": "user-1003",
+            "aud": "api.example",
+            "iat": NOW - 2 * HOUR,
+            "exp": NOW - HOUR,
+        },
+        SECRET,
+    )
