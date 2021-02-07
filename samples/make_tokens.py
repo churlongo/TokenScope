@@ -52,3 +52,16 @@ def build() -> list[tuple[str, str]]:
     # 1. Good token: HS256, kid present, all required claims, lifetime exactly
     #    at the policy maximum (iat to exp is one hour).
     good = sign_hs256(
+        {"alg": "HS256", "typ": "JWT", "kid": "key-2026-01"},
+        {
+            "iss": "https://issuer.example",
+            "sub": "user-1001",
+            "aud": "api.example",
+            "iat": NOW - 60,
+            "nbf": NOW - 60,
+            "exp": NOW + HOUR - 60,
+        },
+        SECRET,
+    )
+    tokens.append(("good HS256 token, all claims, kid present", good))
+
