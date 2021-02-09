@@ -103,3 +103,16 @@ def build() -> list[tuple[str, str]]:
         },
         SECRET,
     )
+    tokens.append(("HS256 token missing aud claim", no_aud))
+
+    # 5. Excessive lifetime: thirty day span, over the one hour policy maximum.
+    long_life = sign_hs256(
+        {"alg": "HS256", "typ": "JWT", "kid": "key-2026-01"},
+        {
+            "iss": "https://issuer.example",
+            "sub": "user-1005",
+            "aud": "api.example",
+            "iat": NOW - 60,
+            "exp": NOW + 30 * DAY,
+        },
+        SECRET,
