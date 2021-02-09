@@ -90,3 +90,16 @@ def build() -> list[tuple[str, str]]:
         },
         SECRET,
     )
+    tokens.append(("expired HS256 token", expired))
+
+    # 4. Missing aud: otherwise valid.
+    no_aud = sign_hs256(
+        {"alg": "HS256", "typ": "JWT", "kid": "key-2026-01"},
+        {
+            "iss": "https://issuer.example",
+            "sub": "user-1004",
+            "iat": NOW - 60,
+            "exp": NOW + HOUR - 60,
+        },
+        SECRET,
+    )
