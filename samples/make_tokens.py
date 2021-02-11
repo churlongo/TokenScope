@@ -116,3 +116,16 @@ def build() -> list[tuple[str, str]]:
             "exp": NOW + 30 * DAY,
         },
         SECRET,
+    )
+    tokens.append(("HS256 token with thirty day lifetime", long_life))
+
+    # 6. Corrupt payload: valid header and signature-shaped tail, but the
+    #    payload segment carries bytes that are not valid JSON once decoded.
+    header = b64url(
+        json.dumps(
+            {"alg": "HS256", "typ": "JWT", "kid": "key-2026-01"},
+            sort_keys=True,
+            separators=(",", ":"),
+        ).encode()
+    )
+    # Encode a truncated, non-JSON payload so decoding succeeds but parsing fails.
