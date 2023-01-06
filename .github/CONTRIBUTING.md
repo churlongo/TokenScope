@@ -6,3 +6,8 @@ Thanks for taking the time to contribute.
 
 ```
 python -m venv .venv
+. .venv/bin/activate
+pip install -e .
+```
+
+The project is standard library only at runtime. If a change needs a third
