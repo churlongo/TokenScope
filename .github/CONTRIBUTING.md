@@ -21,3 +21,8 @@ python -m unittest discover -s tests -v
 
 There is no separate verify script yet; the test suite is the gate.
 
+## What a good change looks like
+
+- One topic per commit, conventional prefix (`fix:`, `feat:`, `docs:`, `test:`).
+- Tests for behavior changes. A bug fix without a regression test is incomplete.
+- No network access anywhere in the code. Offline execution is a hard rule.
