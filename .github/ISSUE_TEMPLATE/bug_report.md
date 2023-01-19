@@ -16,3 +16,6 @@ paste the exact command
 
 Describe the file or sample that triggers the problem. Attach it if it is not
 sensitive.
+
+**Observed output**
+
