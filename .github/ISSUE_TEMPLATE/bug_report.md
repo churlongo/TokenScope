@@ -12,3 +12,7 @@ assignees: ""
 paste the exact command
 ```
 
+**Input**
+
+Describe the file or sample that triggers the problem. Attach it if it is not
+sensitive.
