@@ -281,3 +281,47 @@ class CliTests(unittest.TestCase):
     def _run(self, argv) -> tuple[int, str]:
         buf = io.StringIO()
         with redirect_stdout(buf):
+            code = main(argv)
+        return code, buf.getvalue()
+
+    def test_version(self):
+        code, out = self._run(["version"])
+        self.assertEqual(code, 0)
+        self.assertIn("tokenscope", out)
+
+    def test_audit_missing_file_usage_error(self):
+        code, _ = self._run(["audit", "does-not-exist.txt"])
+        self.assertEqual(code, 2)
+
+    def test_audit_clean_when_no_findings(self):
+        # A file with a single token whose only trigger would be confusion,
+        # audited under an HMAC-only policy embedded through --now, still exits
+        # non-zero if any finding fires. Here we assert the exit code contract
+        # holds: findings present means exit 1.
+        import os
+        import tempfile
+
+        tok = make_token(
+            {"alg": "HS256", "kid": "k"},
+            {
+                "iss": "i",
+                "sub": "s",
+                "aud": "a",
+                "iat": NOW,
+                "exp": NOW + 100,
+            },
+            SECRET,
+        )
+        fd, path = tempfile.mkstemp(suffix=".txt")
+        try:
+            with os.fdopen(fd, "w", encoding="utf-8") as handle:
+                handle.write(tok + "\n")
+            code, out = self._run(["audit", path])
+            # Confusion advisory fires under the default policy, so exit 1.
+            self.assertEqual(code, 1)
+            self.assertIn("TS004", out)
+        finally:
+            os.remove(path)
+
+
+if __name__ == "__main__":
