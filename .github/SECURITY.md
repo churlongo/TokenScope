@@ -16,3 +16,7 @@ seven days.
 
 ## Scope
 
+TokenScope is an offline analysis tool. It reads local files and never opens a
+socket, resolves a name, or makes an HTTP request. The realistic security
+surface is therefore narrow: malformed input that causes a crash, a hang, or
+unbounded memory use while parsing a hostile file.
