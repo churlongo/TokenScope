@@ -12,3 +12,7 @@
 Report suspected vulnerabilities privately to [MAINTAINER CONTACT]. Do not open
 a public issue for a security problem. Include the version, the input that
 triggers the issue, and the observed output. You will get a response within
+seven days.
+
+## Scope
+
