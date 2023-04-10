@@ -26,3 +26,11 @@
   </g>
   <line x1="16" y1="42" x2="604" y2="42" stroke="#52616b" stroke-width="1"/>
 
+  <!-- Row 0: good -->
+  <g font-family="&quot;Cascadia Mono&quot;, &quot;JetBrains Mono&quot;, Consolas, &quot;DejaVu Sans Mono&quot;, monospace" font-size="11">
+    <text x="16" y="70" fill="#1f2933">[0] good</text>
+    <rect x="184" y="60" width="24" height="14" fill="#1f2933"/>
+    <rect x="232" y="60" width="24" height="14" fill="#1f2933"/>
+    <rect x="280" y="60" width="24" height="14" fill="#1f2933"/>
+    <rect x="328" y="60" width="24" height="14" fill="#1f2933"/>
+    <rect x="376" y="60" width="24" height="14" fill="#1f2933"/>
