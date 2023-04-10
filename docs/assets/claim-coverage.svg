@@ -17,3 +17,12 @@
   <g font-family="&quot;Cascadia Mono&quot;, &quot;JetBrains Mono&quot;, Consolas, &quot;DejaVu Sans Mono&quot;, monospace" font-size="12" fill="#1f2933">
     <text x="16" y="34">token</text>
     <text x="196" y="34" text-anchor="middle">iss</text>
+    <text x="244" y="34" text-anchor="middle">sub</text>
+    <text x="292" y="34" text-anchor="middle">aud</text>
+    <text x="340" y="34" text-anchor="middle">exp</text>
+    <text x="388" y="34" text-anchor="middle">nbf</text>
+    <text x="436" y="34" text-anchor="middle">iat</text>
+    <text x="472" y="34">findings</text>
+  </g>
+  <line x1="16" y1="42" x2="604" y2="42" stroke="#52616b" stroke-width="1"/>
+
