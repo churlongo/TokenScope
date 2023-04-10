@@ -9,3 +9,11 @@
     All values come from running: PYTHONPATH=src python -m tokenscope audit
     samples/tokens.txt and inspect samples/tokens.txt at NOW = 1767225600.
   -->
+  <title id="ccTitle">Claim coverage and fired findings per sample token</title>
+  <desc id="ccDesc">A matrix of the six bundled test tokens. Columns iss, sub, aud, exp, nbf, iat show a filled cell when the registered claim is present and an open dash when absent. The final column lists the finding rule ids that fired for each token from a real audit run.</desc>
+  <rect x="0" y="0" width="620" height="300" fill="#ffffff"/>
+
+  <!-- Column headers -->
+  <g font-family="&quot;Cascadia Mono&quot;, &quot;JetBrains Mono&quot;, Consolas, &quot;DejaVu Sans Mono&quot;, monospace" font-size="12" fill="#1f2933">
+    <text x="16" y="34">token</text>
+    <text x="196" y="34" text-anchor="middle">iss</text>
