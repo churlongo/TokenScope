@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 620 300" width="620" height="300" role="img" aria-labelledby="ccTitle ccDesc">
+  <!--
+    Palette reason: two core colours plus one accent, derived from the subject.
+    Ink (#1f2933) for text and present-claim cells, meaning verified structure.
+    Steel (#52616b) neutral for absent-claim marks and gridlines. Amber
+    (#b45309) is the single accent, used only for the fired-finding rule ids,
+    the thing an auditor acts on first. No AI-default palette, no gradient
+    (the fills are flat, no severity ramp is claimed), no glow, no grid paper.
+    All values come from running: PYTHONPATH=src python -m tokenscope audit
+    samples/tokens.txt and inspect samples/tokens.txt at NOW = 1767225600.
+  -->
