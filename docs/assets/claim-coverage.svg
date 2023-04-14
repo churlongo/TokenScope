@@ -85,3 +85,11 @@
     <rect x="424" y="172" width="24" height="14" fill="#1f2933"/>
     <text x="472" y="183" fill="#b45309">TS004, TS011</text>
   </g>
+
+  <!-- Row 5: corrupt payload -->
+  <g font-family="&quot;Cascadia Mono&quot;, &quot;JetBrains Mono&quot;, Consolas, &quot;DejaVu Sans Mono&quot;, monospace" font-size="11">
+    <text x="16" y="210" fill="#1f2933">[5] corrupt</text>
+    <line x1="192" y1="207" x2="208" y2="207" stroke="#52616b" stroke-width="1.5"/>
+    <line x1="240" y1="207" x2="256" y2="207" stroke="#52616b" stroke-width="1.5"/>
+    <line x1="288" y1="207" x2="304" y2="207" stroke="#52616b" stroke-width="1.5"/>
+    <line x1="336" y1="207" x2="352" y2="207" stroke="#52616b" stroke-width="1.5"/>
