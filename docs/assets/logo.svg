@@ -2,3 +2,5 @@
   <!--
     Palette reason: two core colours plus one accent, derived from the subject.
     Ink (#1f2933) is the base, used for the "token" morpheme, standing for the
+    raw encoded material the tool reads. Amber (#b45309) is the single accent,
+    applied only to the "scope" morpheme, the inspecting act that is the tool's
