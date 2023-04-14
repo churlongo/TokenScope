@@ -4,3 +4,6 @@
     Ink (#1f2933) is the base, used for the "token" morpheme, standing for the
     raw encoded material the tool reads. Amber (#b45309) is the single accent,
     applied only to the "scope" morpheme, the inspecting act that is the tool's
+    purpose and the thing the reader should look at first. Steel (#52616b) is a
+    neutral used for the tagline. No AI-default palette, no gradients, no glow.
+    The colon between the morphemes is a literal nod to compact JWT segments
