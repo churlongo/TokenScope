@@ -11,3 +11,6 @@
   -->
   <title id="logoTitle">tokenscope wordmark</title>
   <desc id="logoDesc">The name tokenscope with the token morpheme in ink and the scope morpheme in amber, over a monospace tagline reading JWT and JWS structural auditor.</desc>
+  <rect x="0" y="0" width="240" height="96" fill="#ffffff"/>
+  <g font-family="-apple-system, &quot;Segoe UI&quot;, Roboto, Helvetica, Arial, sans-serif" font-weight="700">
+    <text x="20" y="52" font-size="34" fill="#1f2933">token</text>
