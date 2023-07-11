@@ -38,3 +38,12 @@ findings, because the auditor never reads the wall clock.
 
 Note: every HMAC token also carries TS004, the algorithm confusion advisory,
 because the default policy allows both the HMAC and RSA families. That advisory
+is a property of the policy, not a defect in an individual token. Run with a
+policy that allows only HMAC to silence it.
+
+## Regenerate
+
+From the project root, with the package on the path:
+
+```
+PYTHONPATH=src python samples/make_tokens.py
