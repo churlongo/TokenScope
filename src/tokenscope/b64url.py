@@ -91,3 +91,20 @@ def decode_segment(segment: str) -> Decoded:
             ok=False,
             data=b"",
             padding_added=0,
+            error="character %r is not in the base64url alphabet" % bad,
+        )
+
+    pad_needed = (-len(segment)) % 4
+    padded = segment + ("=" * pad_needed)
+    try:
+        data = base64.urlsafe_b64decode(padded)
+    except (binascii.Error, ValueError) as exc:
+        return Decoded(
+            ok=False,
+            data=b"",
+            padding_added=0,
+            error="base64 decode failed: %s" % exc,
+        )
+    return Decoded(ok=True, data=data, padding_added=pad_needed, error="")
+
+# draft note 1488
