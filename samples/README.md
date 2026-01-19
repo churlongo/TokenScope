@@ -47,3 +47,6 @@ From the project root, with the package on the path:
 
 ```
 PYTHONPATH=src python samples/make_tokens.py
+```
+
+<!-- draft note 1491 -->
