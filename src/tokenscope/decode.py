@@ -116,3 +116,23 @@ def decode_token(raw: str) -> DecodedToken:
             errors.append("payload segment: %s" % d.error)
         else:
             payload, err = _parse_json_object(d.data, "payload")
+            if err:
+                errors.append(err)
+    else:
+        errors.append("payload segment is empty")
+
+    signing_input = (header_b64 + "." + payload_b64).encode("ascii", "replace")
+
+    return DecodedToken(
+        raw=stripped,
+        segments=segments,
+        header=header,
+        payload=payload,
+        header_b64=header_b64,
+        payload_b64=payload_b64,
+        signature_b64=signature_b64,
+        signing_input=signing_input,
+        errors=errors,
+    )
+
+# draft note 1492
