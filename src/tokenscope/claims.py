@@ -282,3 +282,47 @@ def _time_findings(token: DecodedToken, policy: Policy, now: int) -> list[Findin
 
 def _size_findings(token: DecodedToken, policy: Policy) -> list[Finding]:
     size = len(token.payload_b64)
+    if size > policy.max_payload_bytes:
+        return [
+            Finding(
+                "TS014",
+                "low",
+                "encoded payload is %d bytes, over policy maximum %d bytes"
+                % (size, policy.max_payload_bytes),
+            )
+        ]
+    return []
+
+
+def audit_claims(token: DecodedToken, policy: Policy, now: int) -> list[Finding]:
+    """Return all findings for one decoded token, sorted by severity then rule.
+
+    Structural decode errors are turned into TS000 findings so that a corrupt
+    token still produces a line-oriented result. When the header or payload
+    failed to parse, claim level checks are skipped because there is nothing
+    trustworthy to inspect.
+    """
+    findings: list[Finding] = []
+    for err in token.errors:
+        findings.append(Finding("TS000", "high", "decode error: %s" % err))
+
+    findings.extend(_alg_findings(token, policy))
+    findings.extend(_confusion_findings(token, policy))
+    findings.extend(_kid_findings(token, policy))
+
+    if token.payload:
+        findings.extend(_presence_findings(token, policy))
+        findings.extend(_type_findings(token))
+        findings.extend(_time_findings(token, policy, now))
+    findings.extend(_size_findings(token, policy))
+
+    findings.sort(key=lambda f: f.sort_key())
+    return findings
+
+
+def present_claims(token: DecodedToken) -> list[str]:
+    """Return the registered claims present in the payload, in canonical order."""
+    order = ("iss", "sub", "aud", "exp", "nbf", "iat", "jti")
+    return [c for c in order if c in token.payload]
+
+# draft note 1495
