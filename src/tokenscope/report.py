@@ -65,3 +65,21 @@ def render_audit_token(index: int, token: DecodedToken, findings: list[Finding])
     return lines
 
 
+def render_audit_summary(total_findings: int, by_severity: dict[str, int]) -> list[str]:
+    lines = ["", "summary:"]
+    for sev in ("high", "medium", "low", "info"):
+        lines.append("  %-6s %d" % (sev + ":", by_severity.get(sev, 0)))
+    lines.append("  total: %d" % total_findings)
+    return lines
+
+
+def render_verify(index: int, token: DecodedToken, verdict: Verdict) -> list[str]:
+    alg = token.header.get("alg", "?")
+    if not isinstance(alg, str):
+        alg = "(non-string)"
+    return [
+        "token[%d] alg=%s verify=%s" % (index, alg, verdict.status),
+        "  %s" % verdict.detail,
+    ]
+
+# draft note 1500
