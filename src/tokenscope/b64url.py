@@ -107,4 +107,4 @@ def decode_segment(segment: str) -> Decoded:
         )
     return Decoded(ok=True, data=data, padding_added=pad_needed, error="")
 
-# draft note 1488
+# draft note 1498
