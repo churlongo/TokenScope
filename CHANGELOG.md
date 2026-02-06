@@ -73,3 +73,18 @@ a Changelog, and the project uses semantic versioning.
 
 ### Added
 
+- Policy checks: algorithm allow list, expiry, and audience rules.
+
+## [0.2.0] - 2016-08-02
+
+### Added
+
+- Claims model with registered claim names and types.
+
+## [0.1.0] - 2015-04-14
+
+### Added
+
+- Initial base64url decoder and a single token audit entry point.
+
+<!-- draft note 1508 -->
