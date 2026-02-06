@@ -14,3 +14,9 @@
   <rect x="0" y="0" width="240" height="96" fill="#ffffff"/>
   <g font-family="-apple-system, &quot;Segoe UI&quot;, Roboto, Helvetica, Arial, sans-serif" font-weight="700">
     <text x="20" y="52" font-size="34" fill="#1f2933">token</text>
+    <text x="120" y="52" font-size="34" fill="#b45309">scope</text>
+  </g>
+  <text x="20" y="76" font-family="&quot;Cascadia Mono&quot;, &quot;JetBrains Mono&quot;, Consolas, &quot;DejaVu Sans Mono&quot;, monospace" font-size="12" fill="#52616b">JWT and JWS structural auditor</text>
+</svg>
+
+<!-- draft note 1509 -->
