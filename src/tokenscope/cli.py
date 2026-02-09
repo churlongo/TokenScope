@@ -132,3 +132,31 @@ def build_parser() -> argparse.ArgumentParser:
         type=int,
         default=DEFAULT_NOW,
         help="reference Unix time for claim checks (default %d)" % DEFAULT_NOW,
+    )
+    p_audit.set_defaults(func=_cmd_audit)
+
+    p_verify = sub.add_parser(
+        "verify", help="verify HMAC signatures with a shared secret"
+    )
+    p_verify.add_argument("file", help="file of tokens, one per line")
+    p_verify.add_argument(
+        "--secret", required=True, help="shared secret for HMAC verification"
+    )
+    p_verify.set_defaults(func=_cmd_verify)
+
+    p_version = sub.add_parser("version", help="print the version")
+    p_version.set_defaults(func=_cmd_version)
+
+    return parser
+
+
+def main(argv: list[str] | None = None) -> int:
+    parser = build_parser()
+    args = parser.parse_args(argv)
+    return args.func(args)
+
+
+if __name__ == "__main__":
+    sys.exit(main())
+
+# draft note 1511
