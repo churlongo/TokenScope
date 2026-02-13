@@ -121,4 +121,4 @@ https://www.contributor-covenant.org/version/2/1/code_of_conduct.html
 Community Impact Guidelines were inspired by
 https://github.com/mozilla/diversity
 
-<!-- draft note 1510 -->
+<!-- draft note 1516 -->
