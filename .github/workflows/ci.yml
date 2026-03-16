@@ -21,4 +21,4 @@ jobs:
           PYTHONPATH: src
         run: python -m tokenscope version
 
-# draft note 1518
+# draft note 1521
