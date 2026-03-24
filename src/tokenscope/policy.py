@@ -76,3 +76,6 @@ def describe(policy: Policy) -> list[str]:
         "required_claims:      %s" % ", ".join(policy.required_claims),
         "allowed_algs:         %s" % ", ".join(policy.allowed_algs),
     ]
+    return lines
+
+# draft note 1523
