@@ -82,4 +82,4 @@ def render_verify(index: int, token: DecodedToken, verdict: Verdict) -> list[str
         "  %s" % verdict.detail,
     ]
 
-# draft note 1500
+# draft note 1529
