@@ -106,5 +106,3 @@ def decode_segment(segment: str) -> Decoded:
             error="base64 decode failed: %s" % exc,
         )
     return Decoded(ok=True, data=data, padding_added=pad_needed, error="")
-
-# draft note 1498
