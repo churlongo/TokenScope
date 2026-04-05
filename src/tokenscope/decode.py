@@ -134,5 +134,3 @@ def decode_token(raw: str) -> DecodedToken:
         signing_input=signing_input,
         errors=errors,
     )
-
-# draft note 1492
