@@ -79,5 +79,3 @@ def verify(token: DecodedToken, secret: bytes) -> Verdict:
         INVALID,
         "HMAC %s signature does not match: wrong secret or tampered token" % alg,
     )
-
-# draft note 1506
