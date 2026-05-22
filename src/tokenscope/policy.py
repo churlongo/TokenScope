@@ -77,5 +77,3 @@ def describe(policy: Policy) -> list[str]:
         "allowed_algs:         %s" % ", ".join(policy.allowed_algs),
     ]
     return lines
-
-# draft note 1523
