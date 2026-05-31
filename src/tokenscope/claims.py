@@ -324,5 +324,3 @@ def present_claims(token: DecodedToken) -> list[str]:
     """Return the registered claims present in the payload, in canonical order."""
     order = ("iss", "sub", "aud", "exp", "nbf", "iat", "jti")
     return [c for c in order if c in token.payload]
-
-# draft note 1495
