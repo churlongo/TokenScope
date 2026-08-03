@@ -81,5 +81,3 @@ def render_verify(index: int, token: DecodedToken, verdict: Verdict) -> list[str
         "token[%d] alg=%s verify=%s" % (index, alg, verdict.status),
         "  %s" % verdict.detail,
     ]
-
-# draft note 1529
