@@ -29,5 +29,3 @@ where = ["src"]
 [project.urls]
 Homepage = "https://github.com/churlongo/TokenScope"
 Source = "https://github.com/churlongo/TokenScope"
-
-<!-- draft note 1524 -->
