@@ -34,5 +34,3 @@ There is no separate verify script yet; the test suite is the gate.
 
 Fill in the pull request template. Small, focused changes are reviewed fastest.
 If a change alters output, include the before and after in the description.
-
-<!-- draft note 1525 -->
