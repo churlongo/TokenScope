@@ -86,5 +86,3 @@ a Changelog, and the project uses semantic versioning.
 ### Added
 
 - Initial base64url decoder and a single token audit entry point.
-
-<!-- draft note 1527 -->
