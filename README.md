@@ -1,5 +1,5 @@
 <div align="center">
-  <img src="docs/assets/logo.svg" width="180" alt="TokenScope wordmark, the token morpheme in ink and the scope morpheme in amber, over the tagline JWT and JWS structural auditor">
+  <img src="docs/assets/banner.svg" width="100%" alt="TokenScope banner: offline JWT and JWS structural auditor, with a claim audit card showing an expired token, a policy finding, and a coverage summary.">
   <h1>TokenScope</h1>
 </div>
 
