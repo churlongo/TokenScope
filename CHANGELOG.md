@@ -8,6 +8,7 @@ a Changelog, and the project uses semantic versioning.
 ### Changed
 
 - Claim coverage wording is under review for the next patch.
+- A stdin input path is being sketched for the audit command.
 
 ## [1.0.1] - 2026-06-24
 
