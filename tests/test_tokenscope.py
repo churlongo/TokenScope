@@ -14,6 +14,7 @@ import hmac
 import io
 import json
 import unittest
+from unittest import mock
 from contextlib import redirect_stdout
 
 from tokenscope import b64url, claims, decode, report, verify
@@ -322,6 +323,38 @@ class CliTests(unittest.TestCase):
             self.assertIn("TS004", out)
         finally:
             os.remove(path)
+
+
+    def test_inspect_reads_stdin(self):
+        tok = make_token({"alg": "HS256"}, {"sub": "a"}, SECRET)
+        with mock.patch("sys.stdin", io.StringIO(tok + "\n")):
+            code, out = self._run(["inspect", "-"])
+        self.assertEqual(code, 0)
+        self.assertIn("token[0]", out)
+
+    def test_audit_reads_stdin_and_labels_the_source(self):
+        tok = make_token(
+            {"alg": "HS256", "kid": "k"},
+            {
+                "iss": "i",
+                "sub": "s",
+                "aud": "a",
+                "iat": NOW,
+                "exp": NOW + 100,
+            },
+            SECRET,
+        )
+        with mock.patch("sys.stdin", io.StringIO(tok + "\n")):
+            code, out = self._run(["audit", "-"])
+        self.assertEqual(code, 1)
+        self.assertIn("source: stdin", out)
+        self.assertIn("TS004", out)
+
+    def test_verify_reads_stdin(self):
+        tok = make_token({"alg": "HS256"}, {"sub": "a"}, SECRET)
+        with mock.patch("sys.stdin", io.StringIO(tok + "\n")):
+            code, out = self._run(["verify", "-", "--secret", "your-256-bit-secret"])
+        self.assertEqual(code, 0)
 
 
 if __name__ == "__main__":

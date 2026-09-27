@@ -7,6 +7,9 @@ Subcommands:
     verify   verify HMAC signatures with a supplied secret, exit 1 on failures
     version  print the package version
 
+Every command reads tokens from a file, or from stdin when the file argument
+is '-'.
+
 Exit codes: 0 clean, 1 findings present, 2 usage error. argparse itself exits
 with 2 on argument errors, which matches the standard.
 
@@ -34,14 +37,18 @@ def _read_tokens(path: str) -> tuple[list[str], str | None]:
     """Read a token file, one token per non-empty, non-comment line.
 
     Returns (tokens, error). Lines beginning with '#' are treated as comments.
+    A path of '-' reads the tokens from standard input.
     """
-    try:
-        with open(path, "r", encoding="utf-8") as handle:
-            raw_lines = handle.read().splitlines()
-    except OSError as exc:
-        return [], "cannot read %s: %s" % (path, exc)
+    if path == "-":
+        raw_text = sys.stdin.read()
+    else:
+        try:
+            with open(path, "r", encoding="utf-8") as handle:
+                raw_text = handle.read()
+        except OSError as exc:
+            return [], "cannot read %s: %s" % (path, exc)
     tokens = []
-    for line in raw_lines:
+    for line in raw_text.splitlines():
         stripped = line.strip()
         if not stripped or stripped.startswith("#"):
             continue
@@ -68,7 +75,8 @@ def _cmd_audit(args: argparse.Namespace) -> int:
         return 2
     policy = DEFAULT_POLICY
     now = args.now
-    for line in report.render_audit_header(policy, now, args.file, len(tokens)):
+    source = "stdin" if args.file == "-" else args.file
+    for line in report.render_audit_header(policy, now, source, len(tokens)):
         print(line)
     total = 0
     by_severity: dict[str, int] = {}
@@ -120,13 +128,13 @@ def build_parser() -> argparse.ArgumentParser:
     p_inspect = sub.add_parser(
         "inspect", help="decode header and payload of each token, no judgement"
     )
-    p_inspect.add_argument("file", help="file of tokens, one per line")
+    p_inspect.add_argument("file", help="file of tokens, one per line, or - for stdin")
     p_inspect.set_defaults(func=_cmd_inspect)
 
     p_audit = sub.add_parser(
         "audit", help="apply the policy and print findings per token"
     )
-    p_audit.add_argument("file", help="file of tokens, one per line")
+    p_audit.add_argument("file", help="file of tokens, one per line, or - for stdin")
     p_audit.add_argument(
         "--now",
         type=int,
@@ -138,7 +146,7 @@ def build_parser() -> argparse.ArgumentParser:
     p_verify = sub.add_parser(
         "verify", help="verify HMAC signatures with a shared secret"
     )
-    p_verify.add_argument("file", help="file of tokens, one per line")
+    p_verify.add_argument("file", help="file of tokens, one per line, or - for stdin")
     p_verify.add_argument(
         "--secret", required=True, help="shared secret for HMAC verification"
     )

@@ -89,9 +89,10 @@ $ PYTHONPATH=src python -m tokenscope version
 tokenscope 0.1.0
 ```
 
-The three working subcommands take a file of tokens, one token per line. Lines
-that are blank or begin with `#` are ignored, so the bundled `samples/tokens.txt`
-can carry comments describing each vector.
+The three working subcommands take a file of tokens, one token per line, or `-`
+to read the tokens from standard input. Lines that are blank or begin with `#`
+are ignored, so the bundled `samples/tokens.txt` can carry comments describing
+each vector.
 
 ## Subcommands
 
